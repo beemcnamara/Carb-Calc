@@ -94,7 +94,7 @@
 			var trclass="";
 			numfooditems = 0;
 			carbtotal = 0;
-			foodlisttxt = "<table width='100%'><tr class=\"header\"><td></td><td>Food Name</td><td>Carb Rate (100g)</td><td>Food Weight(g)</td><td>Carb Calc</td></tr>";
+			foodlisttxt = "<table width='100%'><tr class=\"header\"><td></td><td>Food</td><td>Carbs (100g)</td><td>Food Weight(g)</td><td>Calc</td></tr>";
 			for(i=0;i<foodArr.length;i++)
 			{
 				if(foodArr[i] != "undefined" && foodArr[i] != "")
@@ -113,7 +113,7 @@
 						{
 						trclass="";
 						}
-					foodlisttxt += "<tr id=\"row" + i + "\"" + trclass + "><td><a href=\"javascript:delfood(" + i + ",'" + thisfood[0] + "','" + thisfood[1] + "')\"><img src=\"img/delete.png\" /></a></td><td>" + thisfood[0] + " </td><td class=\"cent\">" + thisfood[1] + "</td><td><input id=\"amount" + i + "\"  value=\"" + thisamount+ "\" type='tel' size='3'  onChange=\"updatecarbs(" + i + ",'" + thisfood[0]  + "'," + thisfood[1]  + "," + thisfood[2] + ")\" /><input type=\"hidden\" id=\"foodname" + i + "\" value=\"" + thisfood[0]  + "\" ><input type=\"hidden\" id=\"carbvalue" + i + "\" value=\"" + thisfood[1]  + "\" ><input type=\"hidden\" id=\"carbcalc" + i + "\" value=\"" + ((parseInt(thisfood[1])  / 100) * thisfood[2] ) + "\" ></td><td class=\"cent\"><div id='a" + i + "'>" + ((parseInt(thisfood[1])  / 100) * thisfood[2] ).toFixed(2) + "</div></td></tr>";
+					foodlisttxt += "<tr id=\"row" + i + "\"" + trclass + "><td><a href=\"javascript:delfood(" + i + ",'" + thisfood[0] + "','" + thisfood[1] + "')\"><img src=\"img/delete.png\" /></a></td><td>" + thisfood[0] + " </td><td class=\"cent\">" + thisfood[1] + "</td><td class=\"cent\"><input id=\"amount" + i + "\"  value=\"" + thisamount+ "\" type='tel' size='3'  onChange=\"updatecarbs(" + i + ",'" + thisfood[0]  + "'," + thisfood[1]  + "," + thisfood[2] + ")\" /><input type=\"hidden\" id=\"foodname" + i + "\" value=\"" + thisfood[0]  + "\" ><input type=\"hidden\" id=\"carbvalue" + i + "\" value=\"" + thisfood[1]  + "\" ><input type=\"hidden\" id=\"carbcalc" + i + "\" value=\"" + ((parseInt(thisfood[1])  / 100) * thisfood[2] ) + "\" ></td><td class=\"cent\"><div id='a" + i + "'>" + ((parseInt(thisfood[1])  / 100) * thisfood[2] ).toFixed(2) + "</div></td></tr>";
 					numfooditems ++;
 					}	
 			}
