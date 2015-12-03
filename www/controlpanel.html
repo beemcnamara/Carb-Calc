@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2012-2014 Adobe Systems Incorporated. All rights reserved.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+		<script>
+		<!--
+		//delete localStorage.theFoodsList;
+		//delete sessionStorage.theFoodsList;
+		var numfooditems;
+		var carbtotal;
+		var glbfoodid;
+		var glbfoodcarb;
+		var glbfoodname;
+		var gblamount
+		var foodArrtxt;
+		var carbtotal;
+		if(sessionStorage.theFoodsList == "")
+			{
+			sessionStorage.theFoodsList = localStorage.theFoodsList;
+			}
+			//alert("session=" + sessionStorage.theFoodsList)
+			//alert("locale=" + localStorage.theFoodsList)			
+		
+		function delfood(id,foodname,foodcarb)
+		{
+		//this builds the variables so we know what we want to delete and then if ok is clicked function del is called
+			glbfoodid = id;
+			glbfoodcarb = foodcarb;
+			glbfoodname = foodname;
+			gblamount = document.getElementById("amount" + id).value;
+			document.getElementById("thefoodname").innerHTML = foodname;
+			document.getElementById("delbar").style.display='block';
+		}
+		
+		function del()
+			{
+				
+			//this deletes the fooditem from the list. this needs to be completed
+				localStorage.theFoodsList=localStorage.theFoodsList.replace("|---|" + glbfoodname + "|=|" + glbfoodcarb + "|=|0", "");
+				sessionStorage.theFoodsList=sessionStorage.theFoodsList.replace("|---|" + glbfoodname + "|=|" + glbfoodcarb + "|=|" + gblamount, "");
+				document.getElementById("amount" + glbfoodid).value="0";
+				document.getElementById("carbcalc" + glbfoodid).value="0";
+				document.getElementById("row" + glbfoodid).style.display='none';
+				document.getElementById("delbar").style.display='none';		
+				calculatetotal();				
+			}
+		
+		function clo()
+			{
+			//this closes the delete confirm cox
+			document.getElementById("delbar").style.display="none";
+			document.getElementById("clearbar").style.display="none";
+			}
+		
+		function populatelist()
+		{
+		if(sessionStorage.theFoodsList == "")
+			{
+			sessionStorage.theFoodsList = localStorage.theFoodsList;
+			}	
+	//alert(sessionStorage.theFoodsList)
+		//this function populates all the fields and labels based upon what is stored in the localestorage variable. once all is set out it calls the calculaate all function to get the total
+		if(sessionStorage.theFoodsList != "")
+			{
+			var foodArr = sessionStorage.theFoodsList.split("|---|");
+			foodArr.sort();
+			var foodlisttxt;
+			var thisfood;
+			var trclass="";
+			numfooditems = 0;
+			carbtotal = 0;
+			foodlisttxt = "<table width='100%'><tr class=\"header\"><td></td><td>Food Name</td><td>Carb Rate (100g)</td><td>Food Weight(g)</td><td>Carb Calc</td></tr>";
+			for(i=0;i<foodArr.length;i++)
+			{
+				if(foodArr[i] != "undefined" && foodArr[i] != "")
+					{
+					thisfood = foodArr[i].split("|=|")
+					thisamount = thisfood[2];
+					if (thisamount ==0)
+					{
+					thisamount = ""
+					}
+					if(trclass=="")
+						{
+						trclass = " class=\"clrow\"";
+						}
+					else
+						{
+						trclass="";
+						}
+					foodlisttxt += "<tr id=\"row" + i + "\"" + trclass + "><td><a href=\"javascript:delfood(" + i + ",'" + thisfood[0] + "','" + thisfood[1] + "')\"><img src=\"img/delete.png\" /></a></td><td>" + thisfood[0] + " </td><td class=\"cent\">" + thisfood[1] + "</td><td><input id=\"amount" + i + "\"  value=\"" + thisamount+ "\" type='tel' size='3'  onChange=\"updatecarbs(" + i + ",'" + thisfood[0]  + "'," + thisfood[1]  + "," + thisfood[2] + ")\" /><input type=\"hidden\" id=\"foodname" + i + "\" value=\"" + thisfood[0]  + "\" ><input type=\"hidden\" id=\"carbvalue" + i + "\" value=\"" + thisfood[1]  + "\" ><input type=\"hidden\" id=\"carbcalc" + i + "\" value=\"" + ((parseInt(thisfood[1])  / 100) * thisfood[2] ) + "\" ></td><td class=\"cent\"><div id='a" + i + "'>" + ((parseInt(thisfood[1])  / 100) * thisfood[2] ).toFixed(2) + "</div></td></tr>";
+					numfooditems ++;
+					}	
+			}
+			foodlisttxt += "</table>";
+							
+			//alert(foodlisttxt)
+			document.getElementById("content").innerHTML = foodlisttxt;	
+			calculatetotal();
+		
+			}
+		}
+		
+
+		
+		function updatecarbs(id,foodname,carbrate,prevamount) //ok this is the one we're working on
+		{
+		//this function updates the values for a food item and the label is changed with the carb rate. it also adds the carbvale to the carbcalc field for this food item
+		if(document.getElementById("amount" + id).value=="")
+			{newamount = 0}
+		else
+			{newamount = document.getElementById("amount" + id).value}
+		//alert(document.getElementById("amount" + id).value + "," + foodname + "," + carbrate + "," + prevamount)
+		sessionStorage.theFoodsList=sessionStorage.theFoodsList.replace("|---|" + foodname + "|=|" + carbrate + "|=|" + prevamount, "|---|" + foodname + "|=|" + carbrate + "|=|" + newamount);
+		//alert(localStorage.theFoodsList)
+		thisvaluecalc = (carbrate / 100) * newamount;
+		thisvaluecalc = parseFloat(thisvaluecalc.toFixed(2));
+		document.getElementById("a" + id).innerHTML = thisvaluecalc;
+		document.getElementById("carbcalc" + id).value = thisvaluecalc;
+		document.getElementById("amount" + id).value = newamount;
+		calculatetotal();
+		}
+		
+		function calculatetotal()
+		{
+		//this function calculates the total of the carbs on the list based upon the values in the carbcal inputs
+		carbtotal=0;
+		for(t=0;t<numfooditems;t++)
+			{
+			//alert(document.getElementById("carbcalc" + t).value);
+			thiscarb = parseFloat(document.getElementById("carbcalc" + t).value);
+			thiscarb = parseFloat(thiscarb.toFixed(2));
+			carbtotal += thiscarb;
+			}
+			//alert("howdo");
+		document.getElementById("carbtotal").innerHTML = carbtotal ;
+		}
+		
+		function clearcarbs()
+		{
+		sessionStorage.theFoodsList = "";
+		populatelist();
+		document.getElementById("clearbar").style.display='none';	;
+		}
+		
+		function clearmessage()
+		{
+		//this shows the yes no message for clearing the entries
+			document.getElementById("clearbar").style.display='block';
+			
+		}		
+		
+		//-->
+		</script>
+        <title>Carb Calc Control Panel</title>
+    </head>
+    <body onload="populatelist()">
+		<div id="bottombar">
+		
+			<div><a href="javascript:clearmessage()" class="sitebutton">CLEAR</a><a href="setup.html" class="sitebutton">SET UP</a><span  style="font-size:14px;">&nbsp;<br />TOTAL: <span id="carbtotal" style="font-size:14px;font-weight:bold;"></span></span></div> 
+		</div>
+<div id="delbar" style="display:none;" >Are you sure you want to delete <span id="thefoodname"></span>?<br /><a href="javascript:del()" class="sitebutton">YES</a><a href="javascript:clo()" class="sitebutton">NO</a></div>	
+<div id="clearbar" style="display:none;" >Are you sure you want to clear all entries?<br /><a href="javascript:clearcarbs()" class="sitebutton">YES</a><a href="javascript:clo()" class="sitebutton">NO</a></div>	
+        <div class="content" id="content">
+        </div>
+		<div id="local"><br /></div>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+        </script>
+    </body>
+</html>
