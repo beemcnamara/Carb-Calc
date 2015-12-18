@@ -39,9 +39,10 @@
 		var gblamount
 		var foodArrtxt;
 		var carbtotal;
-		if(sessionStorage.theFoodsList == "")
+		if((sessionStorage.theFoodsList == "") || (sessionStorage.theFoodsList == null))
 			{
 			sessionStorage.theFoodsList = localStorage.theFoodsList;
+			sessionStorage.theFoodsList = sessionStorage.theFoodsList.replace("undefined|---|", "")
 			}
 			//alert("session=" + sessionStorage.theFoodsList)
 			//alert("locale=" + localStorage.theFoodsList)			
@@ -79,11 +80,13 @@
 		
 		function populatelist()
 		{
-		if(sessionStorage.theFoodsList == "")
+		if((sessionStorage.theFoodsList == "") || (sessionStorage.theFoodsList == null))
 			{
 			sessionStorage.theFoodsList = localStorage.theFoodsList;
 			}	
-	//alert(sessionStorage.theFoodsList)
+			sessionStorage.theFoodsList = sessionStorage.theFoodsList.replace("undefined|---|", "")
+		
+		//alert(sessionStorage.theFoodsList)
 		//this function populates all the fields and labels based upon what is stored in the localestorage variable. once all is set out it calls the calculaate all function to get the total
 		if(sessionStorage.theFoodsList != "")
 			{
@@ -120,9 +123,10 @@
 			foodlisttxt += "</table>";
 							
 			//alert(foodlisttxt)
+			//alert(sessionStorage.theFoodsList)
 			document.getElementById("content").innerHTML = foodlisttxt;	
 			calculatetotal();
-		
+		//alert(sessionStorage.theFoodsList)
 			}
 		}
 		
@@ -150,22 +154,28 @@
 		{
 		//this function calculates the total of the carbs on the list based upon the values in the carbcal inputs
 		carbtotal=0;
-		for(t=0;t<numfooditems;t++)
+		for(t=0;t<=numfooditems-1;t++)
 			{
-			//alert(document.getElementById("carbcalc" + t).value);
+			//alert(t);
+			//alert(document.getElementById("carbcalc" + t).value)
 			thiscarb = parseFloat(document.getElementById("carbcalc" + t).value);
 			thiscarb = parseFloat(thiscarb.toFixed(2));
 			carbtotal += thiscarb;
+			//alert(carbtotal + "-" + t + "-" + numfooditems);*/
 			}
+			//alert(carbtotal);
 			//alert("howdo");
+			carbtotal = parseFloat(carbtotal.toFixed(2)).toString();
+			//alert(carbtotal);
 		document.getElementById("carbtotal").innerHTML = carbtotal ;
 		}
+		
 		
 		function clearcarbs()
 		{
 		sessionStorage.theFoodsList = "";
 		populatelist();
-		document.getElementById("clearbar").style.display='none';	;
+		clo();
 		}
 		
 		function clearmessage()
@@ -173,7 +183,40 @@
 		//this shows the yes no message for clearing the entries
 			document.getElementById("clearbar").style.display='block';
 			
-		}		
+		}	
+		
+		function addfood()
+		{
+		clo();
+		document.getElementById("bottombar2").style.display='block';
+		document.getElementById("addfood").style.display='block';
+		}
+
+		function addtolist()
+		{
+		//delete localStorage.theFoodsList;
+		//alert(localStorage.theFoodsList);
+		//window.localStorage.clear();
+		var thefood = document.getElementById("foodname").value;
+		var thecarbs = document.getElementById("carbvalue").value;
+		var thegrammes = document.getElementById("gramweight").value
+		//alert(thefood + thecarbs + thegrammes)
+		if((thefood.trim() != "") && (thecarbs.trim() != "") && (thegrammes.trim() != ""))
+			{
+			//alert("hi")
+			var thefullcarbrate = (thecarbs / thegrammes) * 100
+			thefullcarbrate = parseInt(thefullcarbrate);
+			localStorage.theFoodsList += "|---|"  + thefood + "|=|" +  thefullcarbrate + "|=|0";
+			sessionStorage.theFoodsList += "|---|"  + thefood+ "|=|" +  thefullcarbrate + "|=|0";
+			}
+				//alert(sessionStorage.theFoodsList)
+			document.getElementById("bottombar2").style.display='none';
+			document.getElementById("addfood").style.display='none';		
+			document.getElementById("foodname").value="";
+			document.getElementById("carbvalue").value="";
+			document.getElementById("gramweight").value="100";
+			populatelist()
+		}
 		
 		//-->
 		</script>
@@ -182,12 +225,21 @@
     <body onload="populatelist()">
 		<div id="bottombar">
 		
-			<div><a href="javascript:clearmessage()" class="sitebutton">CLEAR</a><a href="setup.html" class="sitebutton">SET UP</a><span  style="font-size:14px;">&nbsp;<br />TOTAL: <span id="carbtotal" style="font-size:14px;font-weight:bold;"></span></span></div> 
+			<div><a href="javascript:clearmessage()" class="sitebutton">CLEAR</a><a href="javascript:addfood()" class="sitebutton">ADD FOOD</a><span  style="font-size:14px;">&nbsp;TOTAL: <span id="carbtotal" style="font-size:14px;font-weight:bold;">0</span></span></div> 
 		</div>
+	
 <div id="delbar" style="display:none;" >Are you sure you want to delete <span id="thefoodname"></span>?<br /><a href="javascript:del()" class="sitebutton">YES</a><a href="javascript:clo()" class="sitebutton">NO</a></div>	
 <div id="clearbar" style="display:none;" >Are you sure you want to clear all entries?<br /><a href="javascript:clearcarbs()" class="sitebutton">YES</a><a href="javascript:clo()" class="sitebutton">NO</a></div>	
         <div class="content" id="content">
         </div>
+		<div id="addfood" style="display:none;">
+			<p>The Food <input type="text" name="foodname" id="foodname" value=""> </p>
+			<p>has a carb value of <input type="tel" id="carbvalue" name="carbvalue" value=""></p>
+			<p>for every <input type="tel" id="gramweight" name="gramweight" value="100"> grammes</p>
+		</div>
+		<div id="bottombar2" style="display:none">
+			<a href="javascript:addtolist()" class="sitebutton" >SAVE</a>
+		</div>			
 		<div id="local"><br /></div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
