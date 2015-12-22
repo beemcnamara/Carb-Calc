@@ -210,12 +210,17 @@
 			sessionStorage.theFoodsList += "|---|"  + thefood+ "|=|" +  thefullcarbrate + "|=|0";
 			}
 				//alert(sessionStorage.theFoodsList)
+			closeaddfood();
+			populatelist();
+		}
+		
+		function closeaddfood()
+		{
 			document.getElementById("bottombar2").style.display='none';
 			document.getElementById("addfood").style.display='none';		
 			document.getElementById("foodname").value="";
 			document.getElementById("carbvalue").value="";
-			document.getElementById("gramweight").value="100";
-			populatelist()
+			document.getElementById("gramweight").value="100";		
 		}
 		
 		//-->
@@ -238,7 +243,7 @@
 			<p>for every <input type="tel" id="gramweight" name="gramweight" value="100"> grammes</p>
 		</div>
 		<div id="bottombar2" style="display:none">
-			<a href="javascript:addtolist()" class="sitebutton" >SAVE</a>
+			<a href="javascript:addtolist()" class="sitebutton" >SAVE</a><a href="javascript:closeaddfood()" class="sitebutton" >CANCEL</a>
 		</div>			
 		<div id="local"><br /></div>
         <script type="text/javascript" src="cordova.js"></script>
