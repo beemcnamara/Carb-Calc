@@ -116,7 +116,7 @@
 						{
 						trclass="";
 						}
-					foodlisttxt += "<tr id=\"row" + i + "\"" + trclass + "><td><a href=\"javascript:delfood(" + i + ",'" + thisfood[0] + "','" + thisfood[1] + "')\"><img src=\"img/delete.png\" /></a></td><td>" + thisfood[0] + " </td><td class=\"cent\">" + thisfood[1] + "</td><td class=\"cent\"><input id=\"amount" + i + "\"  value=\"" + thisamount+ "\" type='tel' size='3'  onChange=\"updatecarbs(" + i + ",'" + thisfood[0]  + "'," + thisfood[1]  + "," + thisfood[2] + ")\" /><input type=\"hidden\" id=\"foodname" + i + "\" value=\"" + thisfood[0]  + "\" ><input type=\"hidden\" id=\"carbvalue" + i + "\" value=\"" + thisfood[1]  + "\" ><input type=\"hidden\" id=\"carbcalc" + i + "\" value=\"" + ((parseInt(thisfood[1])  / 100) * thisfood[2] ) + "\" ></td><td class=\"cent\"><div id='a" + i + "'>" + ((parseInt(thisfood[1])  / 100) * thisfood[2] ).toFixed(2) + "</div></td></tr>";
+					foodlisttxt += "<tr id=\"row" + i + "\"" + trclass + "><td><a href=\"javascript:delfood(" + i + ",'" + thisfood[0] + "','" + thisfood[1] + "')\"><img src=\"img/delete.png\" /></a></td><td>" + thisfood[0] + " </td><td class=\"cent\">" + thisfood[1] + "</td><td class=\"cent\"><input id=\"amount" + i + "\"  value=\"" + thisamount+ "\" type='tel' size='3'  onfocus=\"showaddmenu()\" onblur=\"closeaddmenu()\"  onChange=\"updatecarbs(" + i + ",'" + thisfood[0]  + "'," + thisfood[1]  + "," + thisfood[2] + ")\" /><input type=\"hidden\" id=\"foodname" + i + "\" value=\"" + thisfood[0]  + "\" ><input type=\"hidden\" id=\"carbvalue" + i + "\" value=\"" + thisfood[1]  + "\" ><input type=\"hidden\" id=\"carbcalc" + i + "\" value=\"" + ((parseInt(thisfood[1])  / 100) * thisfood[2] ) + "\" ></td><td class=\"cent\"><div id='a" + i + "'>" + ((parseInt(thisfood[1])  / 100) * thisfood[2] ).toFixed(2) + "</div></td></tr>";
 					numfooditems ++;
 					}	
 			}
@@ -214,6 +214,18 @@
 			populatelist();
 		}
 		
+		function showaddmenu()
+		{
+			document.getElementById("bottombar").style.display='none';
+			document.getElementById("addfoodmenu").style.display='block';		
+		}
+		
+			function closeaddmenu()
+		{
+			document.getElementById("bottombar").style.display='block';
+			document.getElementById("addfoodmenu").style.display='none';		
+		}
+		
 		function closeaddfood()
 		{
 			document.getElementById("bottombar2").style.display='none';
@@ -232,7 +244,7 @@
 		
 			<div><a href="javascript:clearmessage()" class="sitebutton">CLEAR</a><a href="javascript:addfood()" class="sitebutton">ADD FOOD</a><span  style="font-size:14px;">&nbsp;TOTAL: <span id="carbtotal" style="font-size:14px;font-weight:bold;">0</span></span></div> 
 		</div>
-	
+<div id="addfoodmenu" style="display:none;" ><a href="javascript:closeaddmenu()" class="sitebutton">Add Food Weight</a></div>		
 <div id="delbar" style="display:none;" >Are you sure you want to delete <span id="thefoodname"></span>?<br /><a href="javascript:del()" class="sitebutton">YES</a><a href="javascript:clo()" class="sitebutton">NO</a></div>	
 <div id="clearbar" style="display:none;" >Are you sure you want to clear all entries?<br /><a href="javascript:clearcarbs()" class="sitebutton">YES</a><a href="javascript:clo()" class="sitebutton">NO</a></div>	
         <div class="content" id="content">
