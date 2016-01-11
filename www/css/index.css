@@ -45,6 +45,7 @@ body {
     padding:0px;
     text-transform:uppercase;
     width:100%;
+
 }
 
 /* Portrait layout (default) */
@@ -120,7 +121,7 @@ h1 {
 body.home
 {
 	background:#000000 url(../img/logo.png) no-repeat center 10px; /* 170px x 200px */
-	padding-top:200px;
+	padding-top:220px;
 	text-align:center;
 }
 
@@ -144,10 +145,10 @@ body.home
 .contbutton
 {
 	background-color:#2A4865;
-	background-color:#9BBEDC;
+	background-color:#27567A;
 	 border:1px solid #6090BE;
 	 border-radius:5px;
-	 color:#000000;
+	 color:#ffffff;
 	 padding:20px;
 	 text-decoration:none;
 	// text-shadow:#cccccc 1px 1px;
