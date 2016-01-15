@@ -97,7 +97,7 @@
 			var trclass="";
 			numfooditems = 0;
 			carbtotal = 0;
-			foodlisttxt = "<table width='100%'><tr class=\"header\"><td></td><td>Your Foods</td><td>Carb 100g</td><td>Food Weight</td><td>Carb Calc</td></tr>";
+			foodlisttxt = "<table width='100%'><tr class=\"header\"><td></td><td>Your Foods</td><td>Carbs per 100g</td><td>Food Weight</td><td>Carbs</td></tr>";
 			for(i=0;i<foodArr.length;i++)
 			{
 				if(foodArr[i] != "undefined" && foodArr[i] != "")
@@ -242,7 +242,7 @@
     <body onload="populatelist()">
 		<div id="bottombar">
 		
-			<div><a href="javascript:clearmessage()" class="sitebutton">CLEAR</a><a href="javascript:addfood()" class="sitebutton">ADD FOOD</a><span  style="font-size:14px;">&nbsp;TOTAL: <span id="carbtotal" style="font-size:14px;font-weight:bold;">0</span></span></div> 
+			<div><a href="javascript:clearmessage()" class="sitebutton">CLEAR</a><a href="javascript:addfood()" class="sitebutton">ADD FOOD</a><span  style="font-size:14px;">&nbsp;CARBS TOTAL<span style="text-transform:lowercase;">(g)</span>: <span id="carbtotal" style="font-size:14px;font-weight:bold;">0</span></span></div> 
 		</div>
 <div id="addfoodmenu" style="display:none;" ><a href="javascript:closeaddmenu()" class="sitebutton">Add Food Weight</a></div>		
 <div id="delbar" style="display:none;" >Are you sure you want to delete <span id="thefoodname"></span>?<br /><a href="javascript:del()" class="sitebutton">YES</a><a href="javascript:clo()" class="sitebutton">NO</a></div>	
