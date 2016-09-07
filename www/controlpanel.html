@@ -246,6 +246,20 @@
 			document.getElementById("gramweight").value="100";		
 		}
 		
+		function showhelp()
+		{
+		clo();
+		document.getElementById("bottombar3").style.display='block';
+		document.getElementById("helpscreen").style.display='block';
+		}
+		
+			function closehelp()
+		{
+			document.getElementById("bottombar3").style.display='none';
+			document.getElementById("helpscreen").style.display='none';	
+		}		
+		
+		
 		//-->
 		</script>
         <title>Carb Calc Control Panel</title>
@@ -253,7 +267,7 @@
     <body onload="populatelist()">
 		<div id="bottombar">
 		
-			<div><a href="javascript:clearmessage()" class="sitebutton">CLEAR</a><a href="javascript:addfood()" class="sitebutton">ADD FOOD</a><span  style="font-size:14px;">&nbsp;CARBS TOTAL<span style="text-transform:lowercase;">(g)</span>: <span id="carbtotal" style="font-size:14px;font-weight:bold;">0</span></span></div> 
+			<div><a href="javascript:showhelp()" class="sitebutton">&nbsp;&nbsp;?&nbsp;&nbsp;</a><a href="javascript:clearmessage()" class="sitebutton">CLEAR</a><a href="javascript:addfood()" class="sitebutton">ADD FOOD</a><span  style="font-size:14px;">&nbsp;CARBS TOTAL<span style="text-transform:lowercase;">(g)</span>: <span id="carbtotal" style="font-size:14px;font-weight:bold;">0</span></span></div> 
 		</div>
 <div id="addfoodmenu" style="display:none;" ><a href="javascript:closeaddmenu()" class="sitebutton">Add Food Weight</a></div>		
 <div id="delbar" style="display:none;" >Are you sure you want to delete <span id="thefoodname"></span>?<br /><a href="javascript:del()" class="sitebutton">YES</a><a href="javascript:clo()" class="sitebutton">NO</a></div>	
@@ -270,6 +284,38 @@
 		</div>
 		<div id="bottombar2" style="display:none">
 			<a href="javascript:addtolist()" class="sitebutton" >SAVE</a><a href="javascript:closeaddfood()" class="sitebutton" >CANCEL</a>
+		</div>	
+		<div id="helpscreen" style="display:none;">
+		<div style="padding-right:20px;">
+		<p><b>CARB CALC HELP</b></p>
+		<p>Carb Calc provides you with the ability to create your own small database (or food list) of the foods you eat most, and attach a carb value to those foods.</p>
+		<p>Once a food item has been added to your food list you can then specify a weight for a portion of that food to get a carb value for it.</p>
+		<p><b>Adding A New Food</b></p>
+		<p>
+		<ul>
+		<li>Press on the "ADD FOOD" button at the bottom of the screen</li>
+		<li>Type in the name of your food in the top text box</li>
+		<li>Add a carb value for the food that you are adding. By default you can add a carb value per 100g of food, however the 100g can be changed if required.</li>
+		<li>Press the "SAVE" button and your food will be added to your list.</li>
+		</ul>
+		</p>
+		<p><b>Getting a carb value for your foods</b></p>
+		<p>
+		<ul>
+		<li>To get a carb value for a food you need to be viewing your food list</li>
+		<li>Press the text box in the food weight column next to the food item that you want a value for.</li>
+		<li>Add the weight of the portion of this food that your about to eat.</li>
+		<li>You can add food weights for more than one food.</li>
+		<li>Click the "ADD FOOD WEIGHT" button to generate a carb value for that foods portion size.</li>
+		<li>To the right of each food that you have added a value for, the carb value for that weight of food will be displayed</li>
+		<li>At the bottom a total carb value for all foods that have been inputed will be displayed</li>
+		</ul>
+		</p>
+		<p>I built this app because I am diabetic and it has been very helpful for me in calculating my carb intake. I don't make any money out of this app
+		</p>
+		</div></div>
+		<div id="bottombar3" style="display:none">
+			<a href="javascript:closehelp()" class="sitebutton" >CLOSE</a>
 		</div>			
 		<div id="local"><br /></div>
         <script type="text/javascript" src="cordova.js"></script>
