@@ -45,6 +45,7 @@
 			localStorage.theFoodsList = localStorage.theFoodsList.replace(/'/g, "")	
 			localStorage.theFoodsList = localStorage.theFoodsList.replace("undefined|---|", "")
 			sessionStorage.theFoodsList = localStorage.theFoodsList;
+			document.write(sessionStorage.theFoodsList)
 			}
 			//alert("session=" + sessionStorage.theFoodsList)
 			//alert("locale=" + localStorage.theFoodsList)			
