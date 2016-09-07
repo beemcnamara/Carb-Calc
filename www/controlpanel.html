@@ -125,7 +125,7 @@
 					thisfooditemtxt = thisfood[0]
 					//thisfooditemtxt = thisfooditemtxt.replace("'","\\'")
 					foodlisttxt += "<tr id=\"row" + i + "\"" + trclass + "><td><a href=\"javascript:delfood(" + i + ",'" + thisfooditemtxt + "','" + thisfood[1] + "')\"><img src=\"img/delete.png\" /></a></td><td class=\"foodcell\">" + thisfood[0] + " </td><td class=\"cent\">" + thisfood[1] + "</td><td class=\"cent\"><input id=\"amount" + i + "\"  value=\"" + thisamount+ "\" type='tel' size='3'  onfocus=\"showaddmenu()\" onblur=\"closeaddmenu()\"  onChange=\"updatecarbs(" + i + ",'" + thisfood[0]  + "'," + thisfood[1]  + "," + thisfood[2] + ")\" /><input type=\"hidden\" id=\"foodname" + i + "\" value=\"" + thisfood[0]  + "\" ><input type=\"hidden\" id=\"carbvalue" + i + "\" value=\"" + thisfood[1]  + "\" ><input type=\"hidden\" id=\"carbcalc" + i + "\" value=\"" + ((parseInt(thisfood[1])  / 100) * thisfood[2] ) + "\" ></td><td class=\"cent\"><div id='a" + i + "'>" + ((parseInt(thisfood[1])  / 100) * thisfood[2] ).toFixed(2) + "</div></td></tr>";
-					foodlisttxt += "<tr><td colspan=5>" + foodArr[i] + "</td></tr>"
+					//foodlisttxt += "<tr><td colspan=5>" + foodArr[i] + "</td></tr>"
 					numfooditems ++;
 					}	
 			}
