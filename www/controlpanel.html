@@ -96,8 +96,7 @@
 		//this function populates all the fields and labels based upon what is stored in the localestorage variable. once all is set out it calls the calculaate all function to get the total
 		if(sessionStorage.theFoodsList != "")
 			{
-			var foodArr = sessionStorage.theFoodsList.split("|---|");
-			foodArr.sort();
+			var foodArr = sessionStorage.theFoodsList.split("|---|").sort();
 			//alert("SORTED")
 			var foodlisttxt;
 			var thisfood;
