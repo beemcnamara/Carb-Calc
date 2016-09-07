@@ -92,6 +92,7 @@
 			{
 			var foodArr = sessionStorage.theFoodsList.split("|---|");
 			foodArr.sort();
+			//alert("SORTED")
 			var foodlisttxt;
 			var thisfood;
 			var trclass="";
@@ -206,8 +207,8 @@
 			//alert("hi")
 			var thefullcarbrate = (thecarbs / thegrammes) * 100
 			thefullcarbrate = parseInt(thefullcarbrate);
-			localStorage.theFoodsList += "|---|"  + thefood + "|=|" +  thefullcarbrate + "|=|0";
-			sessionStorage.theFoodsList += "|---|"  + thefood+ "|=|" +  thefullcarbrate + "|=|0";
+			localStorage.theFoodsList += "|---|"  + thefood.trim() + "|=|" +  thefullcarbrate + "|=|0";
+			sessionStorage.theFoodsList += "|---|"  + thefood.trim()+ "|=|" +  thefullcarbrate + "|=|0";
 			}
 				//alert(sessionStorage.theFoodsList)
 			closeaddfood();
