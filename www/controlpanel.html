@@ -65,8 +65,16 @@
 			{
 				
 			//this deletes the fooditem from the list. this needs to be completed
+			if((localStorage.theFoodsList.indexOf(glbfoodname + "|=|" + glbfoodcarb + "|=|0") > -1) && (localStorage.theFoodsList.indexOf("|---|" + glbfoodname + "|=|" + glbfoodcarb + "|=|0") = -1))
+				{
+				localStorage.theFoodsList=localStorage.theFoodsList.replace(glbfoodname + "|=|" + glbfoodcarb + "|=|0", "");
+				sessionStorage.theFoodsList=sessionStorage.theFoodsList.replace(glbfoodname + "|=|" + glbfoodcarb + "|=|" + gblamount, "");
+				}
+				else
+				{
 				localStorage.theFoodsList=localStorage.theFoodsList.replace("|---|" + glbfoodname + "|=|" + glbfoodcarb + "|=|0", "");
 				sessionStorage.theFoodsList=sessionStorage.theFoodsList.replace("|---|" + glbfoodname + "|=|" + glbfoodcarb + "|=|" + gblamount, "");
+				}
 				document.getElementById("amount" + glbfoodid).value="0";
 				document.getElementById("carbcalc" + glbfoodid).value="0";
 				document.getElementById("row" + glbfoodid).style.display='none';
