@@ -91,7 +91,8 @@
 			sessionStorage.theFoodsList = localStorage.theFoodsList;
 			}	
 
-		
+		//document.write(sessionStorage.theFoodsList + "<br>")
+		//document.write(localStorage.theFoodsList)
 		//alert(sessionStorage.theFoodsList)
 		//this function populates all the fields and labels based upon what is stored in the localestorage variable. once all is set out it calls the calculaate all function to get the total
 		if(sessionStorage.theFoodsList != "")
@@ -130,7 +131,7 @@
 					}	
 			}
 			foodlisttxt += "</table>";
-							
+						
 			//alert(foodlisttxt)
 			//alert(sessionStorage.theFoodsList)
 			document.getElementById("content").innerHTML = foodlisttxt;	
@@ -161,8 +162,10 @@
 		
 		function calculatetotal()
 		{
+					
 		//this function calculates the total of the carbs on the list based upon the values in the carbcal inputs
 		carbtotal=0;
+		
 		for(t=0;t<=numfooditems-1;t++)
 			{
 			//alert(t);
