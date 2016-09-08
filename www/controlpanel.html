@@ -63,9 +63,11 @@
 		
 		function del()
 			{
-				
+			alert("the food list = " + localStorage.theFoodsList)
+				//alert(localStorage.theFoodsList.indexOf(glbfoodname + "|=|" + glbfoodcarb + "|=|0"))
+				//alert(localStorage.theFoodsList.indexOf("|---|" + glbfoodname + "|=|" + glbfoodcarb + "|=|0"))
 			//this deletes the fooditem from the list. this needs to be completed
-			if((localStorage.theFoodsList.indexOf(glbfoodname + "|=|" + glbfoodcarb + "|=|0") > -1) && (localStorage.theFoodsList.indexOf("|---|" + glbfoodname + "|=|" + glbfoodcarb + "|=|0") = -1))
+			if((localStorage.theFoodsList.indexOf(glbfoodname + "|=|" + glbfoodcarb + "|=|0")) && (! localStorage.theFoodsList.indexOf("|---|" + glbfoodname + "|=|" + glbfoodcarb + "|=|0")))
 				{
 				localStorage.theFoodsList=localStorage.theFoodsList.replace(glbfoodname + "|=|" + glbfoodcarb + "|=|0", "");
 				sessionStorage.theFoodsList=sessionStorage.theFoodsList.replace(glbfoodname + "|=|" + glbfoodcarb + "|=|" + gblamount, "");
@@ -79,7 +81,7 @@
 				document.getElementById("carbcalc" + glbfoodid).value="0";
 				document.getElementById("row" + glbfoodid).style.display='none';
 				document.getElementById("delbar").style.display='none';		
-				calculatetotal();				
+				calculatetotal();		
 			}
 		
 		function clo()
