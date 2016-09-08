@@ -278,7 +278,7 @@
 			<div id="topbar">Add Food Item</div>
 			<p><input type="text" name="foodname" id="foodname" value="" placeholder="Add The Food Name Here" size=27></p>
 			<p>has a carb value of <input type="tel" id="carbvalue" name="carbvalue" value="" size="6"></p>
-			<p>for every <input type="tel" id="gramweight" name="gramweight" value="100" size="6"> grammes *</p>
+			<p>for every <input type="tel" id="gramweight" name="gramweight" value="100" size="6"> grammes in weight*</p>
 			<p style="font-weight:bold;">Fill in the details above and click on the SAVE button at the bottom to add your food item</p>
 			<p style="font-style:italic;">* 100 Grammes is specified by default, This value can be changed however.</p>
 		</div>
@@ -286,16 +286,17 @@
 			<a href="javascript:addtolist()" class="sitebutton" >SAVE</a><a href="javascript:closeaddfood()" class="sitebutton" >CANCEL</a>
 		</div>	
 		<div id="helpscreen" style="display:none;">
-		<div style="padding-right:20px;">
+		<div style="padding-right:20px;padding-bottom:100px;">
 		<p><b>CARB CALC HELP</b></p>
 		<p>Carb Calc provides you with the ability to create your own small database (or food list) of the foods you eat most, and attach a carb value to those foods.</p>
-		<p>Once a food item has been added to your food list you can then specify a weight for a portion of that food to get a carb value for it.</p>
+		<p>Once a food item has been added to your list you can then specify a weight for a portion of that food and get a carb value for it.</p>
 		<p><b>Adding A New Food</b></p>
 		<p>
 		<ul>
 		<li>Press on the "ADD FOOD" button at the bottom of the screen</li>
 		<li>Type in the name of your food in the top text box</li>
-		<li>Add a carb value for the food that you are adding. By default you can add a carb value per 100g of food, however the 100g can be changed if required.</li>
+		<li>Add a carb value for the food that you are adding. </li>
+		<li>Set the  weight by which you are basing the carb value. By default this is set at 100g can be changed if required.</li>
 		<li>Press the "SAVE" button and your food will be added to your list.</li>
 		</ul>
 		</p>
@@ -304,15 +305,15 @@
 		<ul>
 		<li>To get a carb value for a food you need to be viewing your food list</li>
 		<li>Press the text box in the food weight column next to the food item that you want a value for.</li>
-		<li>Add the weight of the portion of this food that your about to eat.</li>
-		<li>You can add food weights for more than one food.</li>
+		<li>Add the weight of the portion of the food that your about to eat.</li>
 		<li>Click the "ADD FOOD WEIGHT" button to generate a carb value for that foods portion size.</li>
-		<li>To the right of each food that you have added a value for, the carb value for that weight of food will be displayed</li>
+		<li>You can add food weights for as many foods as there are in your list.</li>
+		<li>To the right of each food that you have added a value for, the carb value for that weight of food will be displayed - <i>see image below</i></li>
 		<li>At the bottom a total carb value for all foods that have been inputed will be displayed</li>
 		</ul>
 		</p>
-		<p>I built this app because I am diabetic and it has been very helpful for me in calculating my carb intake. I don't make any money out of this app
-		</p>
+		<p><img src="img/screenshot.png" style="max-width:100%"></p>
+		<p>If you have any any questions or problems with this app can you please contact me on bee@beework.net  with a description of the issue and I'll try to work out what is going wrong</p>
 		</div></div>
 		<div id="bottombar3" style="display:none">
 			<a href="javascript:closehelp()" class="sitebutton" >CLOSE</a>
