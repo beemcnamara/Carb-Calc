@@ -63,13 +63,13 @@
 		
 		function del()
 			{
-				alert(glbfoodname + "|=|" + glbfoodcarb + "|=|0")
+				//alert(glbfoodname + "|=|" + glbfoodcarb + "|=|0")
 				//alert(localStorage.theFoodsList.indexOf(glbfoodname + "|=|" + glbfoodcarb + "|=|0"))
 				//alert(localStorage.theFoodsList.indexOf("|---|" + glbfoodname + "|=|" + glbfoodcarb + "|=|0"))
 			//this deletes the fooditem from the list. this needs to be completed
 			if((localStorage.theFoodsList.indexOf(glbfoodname + "|=|" + glbfoodcarb + "|=|0") > -1) && (localStorage.theFoodsList.indexOf("|---|" + glbfoodname + "|=|" + glbfoodcarb + "|=|0")==-1))
 				{
-				alert("the food list = " + localStorage.theFoodsList)
+				//alert("the food list = " + localStorage.theFoodsList)
 				localStorage.theFoodsList=localStorage.theFoodsList.replace(glbfoodname + "|=|" + glbfoodcarb + "|=|0", "");
 				sessionStorage.theFoodsList=sessionStorage.theFoodsList.replace(glbfoodname + "|=|" + glbfoodcarb + "|=|" + gblamount, "");
 				}
