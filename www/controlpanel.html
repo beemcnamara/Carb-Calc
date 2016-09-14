@@ -177,16 +177,9 @@
 		carbtotal=0;
 		for(t=0;t<=numfooditems-1;t++)
 			{
-			thiscarb = document.getElementById("carbcalc" + t).value;
-			if (isNaN(thiscarb))
-			{
-			//do nothing
-			}
-			else
-			{
+			thiscarb = parseFloat(document.getElementById("carbcalc" + t).value);
 			thiscarb = parseFloat(thiscarb.toFixed(2));
 			carbtotal += thiscarb;
-			}
 			}
 			carbtotal = parseFloat(carbtotal.toFixed(2)).toString();
 		document.getElementById("carbtotal").innerHTML = carbtotal ;
