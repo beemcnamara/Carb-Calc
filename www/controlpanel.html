@@ -106,6 +106,10 @@ else
 		{
 		localStorage.theFoodsList = localStorage.theFoodsList.replace("|---||---|", "|---|")
 		sessionStorage.theFoodsList = sessionStorage.theFoodsList.replace("|---||---|", "|---|")
+		localStorage.theFoodsList = localStorage.theFoodsList.replace("|=|00", "|=|0")
+		sessionStorage.theFoodsList = sessionStorage.theFoodsList.replace("|=|00", "|=|0")	
+		localStorage.theFoodsList = localStorage.theFoodsList.replace("|=|000", "|=|0")
+		sessionStorage.theFoodsList = sessionStorage.theFoodsList.replace("|=|000", "|=|0")			
 		if((sessionStorage.theFoodsList == "") || (sessionStorage.theFoodsList == null))
 			{
 			localStorage.theFoodsList = localStorage.theFoodsList.replace("|---||---|", "|---|")
@@ -176,23 +180,32 @@ else
 		//alert(document.getElementById("amount" + id).value + "," + foodname + "," + carbrate + "," + prevamount)
 		sessionStorage.theFoodsList=sessionStorage.theFoodsList.replace("|---|" + foodname + "|=|" + carbrate + "|=|" + prevamount, "|---|" + foodname + "|=|" + carbrate + "|=|" + newamount);
 		//alert(localStorage.theFoodsList)
+		/*replaced with populatelist
 		thisvaluecalc = (carbrate / 100) * newamount;
 		thisvaluecalc = parseFloat(thisvaluecalc.toFixed(2));
 		document.getElementById("a" + id).innerHTML = thisvaluecalc;
 		document.getElementById("carbcalc" + id).value = thisvaluecalc;
 		document.getElementById("amount" + id).value = newamount;
-		calculatetotal();
+		calculatetotal();*/
+		populatelist()
 		}
 		
 		function calculatetotal()
 		{
-		//this function calculates the total of the carbs on the list based upon the values in the carbcal inputs
+		//this function calculates the total of the carbs on the list based upon the values in sessionStorage.theFoodsLis
 		carbtotal=0;
-		for(t=0;t<=numfooditems-1;t++)
-			{
-			thiscarb = parseFloat(document.getElementById("carbcalc" + t).value);
-			thiscarb = parseFloat(thiscarb.toFixed(2));
-			carbtotal += thiscarb;
+			var foodArr = sessionStorage.theFoodsList.split("|---|");
+			for(i=0;i<foodArr.length;i++)
+			{		
+				if(foodArr[i] != "undefined" && foodArr[i] != "")
+					{			
+					thisfood = foodArr[i].split("|=|")
+					thisamount = ((parseInt(thisfood[1])  / 100) * thisfood[2] ).toFixed(2);
+					//alert(thisamount)
+					thiscarb = parseFloat(thisamount);
+					thiscarb = parseFloat(thiscarb.toFixed(2));
+					carbtotal += thiscarb;
+					}
 			}
 			carbtotal = parseFloat(carbtotal.toFixed(2)).toString();
 		document.getElementById("carbtotal").innerHTML = carbtotal ;
