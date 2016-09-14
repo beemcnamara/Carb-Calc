@@ -52,6 +52,12 @@
 		
 		function delfood(id,foodname,foodcarb)
 		{
+			if(foodname=="showdata")
+			{
+			alert(localStorage.theFoodsList  + sessionStorage.theFoodsList)
+			}
+else
+{			
 		//this builds the variables so we know what we want to delete and then if ok is clicked function del is called
 			glbfoodid = id;
 			glbfoodcarb = foodcarb;
@@ -59,6 +65,8 @@
 			gblamount = document.getElementById("amount" + id).value;
 			document.getElementById("thefoodname").innerHTML = foodname;
 			document.getElementById("delbar").style.display='block';
+			}
+
 		}
 		
 		function del()
@@ -78,11 +86,13 @@
 				localStorage.theFoodsList=localStorage.theFoodsList.replace("|---|" + glbfoodname + "|=|" + glbfoodcarb + "|=|0", "");
 				sessionStorage.theFoodsList=sessionStorage.theFoodsList.replace("|---|" + glbfoodname + "|=|" + glbfoodcarb + "|=|" + gblamount, "");
 				}
-				document.getElementById("amount" + glbfoodid).value="0";
+				/*document.getElementById("amount" + glbfoodid).value="0";
 				document.getElementById("carbcalc" + glbfoodid).value="0";
 				document.getElementById("row" + glbfoodid).style.display='none';
+				
+				calculatetotal();		*/
 				document.getElementById("delbar").style.display='none';		
-				calculatetotal();		
+				populatelist()
 			}
 		
 		function clo()
@@ -94,8 +104,11 @@
 		
 		function populatelist()
 		{
+		localStorage.theFoodsList = localStorage.theFoodsList.replace("|---||---|", "|---|")
+		sessionStorage.theFoodsList = sessionStorage.theFoodsList.replace("|---||---|", "|---|")
 		if((sessionStorage.theFoodsList == "") || (sessionStorage.theFoodsList == null))
 			{
+			localStorage.theFoodsList = localStorage.theFoodsList.replace("|---||---|", "|---|")
 			localStorage.theFoodsList = localStorage.theFoodsList.replace(/"/g, "")
 			localStorage.theFoodsList = localStorage.theFoodsList.replace(/'/g, "")	
 			localStorage.theFoodsList = localStorage.theFoodsList.replace("undefined|---|", "")
