@@ -85,14 +85,6 @@
 		
 	function populatelist()
 		{
-		localStorage.theFoodsList = localStorage.theFoodsList.toUpperCase()
-		sessionStorage.theFoodsList = sessionStorage.theFoodsList.toUpperCase()
-		localStorage.theFoodsList = localStorage.theFoodsList.replace("|---||---|", "|---|")
-		sessionStorage.theFoodsList = sessionStorage.theFoodsList.replace("|---||---|", "|---|")
-		localStorage.theFoodsList = localStorage.theFoodsList.replace("|=|00", "|=|0")
-		sessionStorage.theFoodsList = sessionStorage.theFoodsList.replace("|=|00", "|=|0")	
-		localStorage.theFoodsList = localStorage.theFoodsList.replace("|=|000", "|=|0")
-		sessionStorage.theFoodsList = sessionStorage.theFoodsList.replace("|=|000", "|=|0")			
 		if((sessionStorage.theFoodsList == "") || (sessionStorage.theFoodsList == null))
 			{
 			localStorage.theFoodsList = localStorage.theFoodsList.replace("|---||---|", "|---|")
@@ -101,6 +93,14 @@
 			localStorage.theFoodsList = localStorage.theFoodsList.replace("undefined|---|", "")
 			sessionStorage.theFoodsList = localStorage.theFoodsList;
 			}	
+		localStorage.theFoodsList = localStorage.theFoodsList.toUpperCase()
+		sessionStorage.theFoodsList = sessionStorage.theFoodsList.toUpperCase()
+		localStorage.theFoodsList = localStorage.theFoodsList.replace("|---||---|", "|---|")
+		sessionStorage.theFoodsList = sessionStorage.theFoodsList.replace("|---||---|", "|---|")
+		localStorage.theFoodsList = localStorage.theFoodsList.replace("|=|00", "|=|0")
+		sessionStorage.theFoodsList = sessionStorage.theFoodsList.replace("|=|00", "|=|0")	
+		localStorage.theFoodsList = localStorage.theFoodsList.replace("|=|000", "|=|0")
+		sessionStorage.theFoodsList = sessionStorage.theFoodsList.replace("|=|000", "|=|0")				
 		//this function populates all the fields and labels based upon what is stored in the sessionstorage variable. once all is set out it calls the calculaate all function to get the total
 		if(sessionStorage.theFoodsList != "")
 			{
