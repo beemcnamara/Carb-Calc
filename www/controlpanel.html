@@ -91,6 +91,7 @@
 			localStorage.theFoodsList = localStorage.theFoodsList.replace(/"/g, "")
 			localStorage.theFoodsList = localStorage.theFoodsList.replace(/'/g, "")	
 			localStorage.theFoodsList = localStorage.theFoodsList.replace("undefined|---|", "")
+			localStorage.theFoodsList = localStorage.theFoodsList.replace("UNDEFINED|---|", "")
 			sessionStorage.theFoodsList = localStorage.theFoodsList;
 			}	
 		localStorage.theFoodsList = localStorage.theFoodsList.toUpperCase()
