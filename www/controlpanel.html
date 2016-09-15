@@ -87,6 +87,10 @@
 		{
 		if((sessionStorage.theFoodsList == "") || (sessionStorage.theFoodsList == null))
 			{
+			if(localStorage.theFoodsList.substring(0,5) != "|---|")
+				{
+				localStorage.theFoodsList = "|---|" + localStorage.theFoodsList
+				}
 			localStorage.theFoodsList = localStorage.theFoodsList.replace("|---||---|", "|---|")
 			localStorage.theFoodsList = localStorage.theFoodsList.replace(/"/g, "")
 			localStorage.theFoodsList = localStorage.theFoodsList.replace(/'/g, "")	
