@@ -93,6 +93,17 @@
 		replacedata("UNDEFINED|---|", "")
 		localStorage.theFoodsList = localStorage.theFoodsList.toUpperCase()
 		sessionStorage.theFoodsList = sessionStorage.theFoodsList.toUpperCase()
+		localStorage.theFoodsList = localStorage.theFoodsList + "|---|"
+		sessionStorage.theFoodsList = sessionStorage.theFoodsList + "|---|"
+		if(localStorage.theFoodsList.substring(localStorage.theFoodsList.length - 5,localStorage.theFoodsList.length) != "|---|")
+			{
+			localStorage.theFoodsList = "|---|" + localStorage.theFoodsList
+			}	
+		if(sessionStorage.theFoodsList.substring(sessionStorage.theFoodsList.length - 5,sessionStorage.theFoodsList.length) != "|---|")
+			{
+			sessionStorage.theFoodsList = "|---|" + sessionStorage.theFoodsList
+			}			
+	
 		if(localStorage.theFoodsList.substring(0,5) != "|---|")
 			{
 			localStorage.theFoodsList = "|---|" + localStorage.theFoodsList
