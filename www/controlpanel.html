@@ -131,14 +131,14 @@
 					}	
 			}
 			foodlisttxt += "</table>";
-			document.getElementById("content").innerHTML = foodlisttxt;	
-			calculatetotal();
 			var showdata
 			showdata = true
 			if(showdata)
 			{
-				alert(localStorage.theFoodsList  + sessionStorage.theFoodsList)
-			}
+				foodlisttxt += "<h2>localstorage</h2>" + localStorage.theFoodsList  + "<h2>session storage</h2>" + sessionStorage.theFoodsList
+			}			
+			document.getElementById("content").innerHTML = foodlisttxt;	
+			calculatetotal();
 		}
 	}
 		
