@@ -42,7 +42,7 @@
 	function delfood(id,foodname,foodcarb)
 		{
 			var showdata
-			showdata = true
+			showdata = false
 			if(showdata)
 			{
 				alert(localStorage.theFoodsList  + sessionStorage.theFoodsList)
@@ -61,17 +61,8 @@
 		
 	function del()
 		{
-		if((localStorage.theFoodsList.indexOf(glbfoodname + "|=|" + glbfoodcarb + "|=|0") > -1) && (localStorage.theFoodsList.indexOf("|---|" + glbfoodname + "|=|" + glbfoodcarb + "|=|0")==-1))
-			{
-			//alert("the food list = " + localStorage.theFoodsList)
-			localStorage.theFoodsList=localStorage.theFoodsList.replace(glbfoodname + "|=|" + glbfoodcarb + "|=|0", "");
-			sessionStorage.theFoodsList=sessionStorage.theFoodsList.replace(glbfoodname + "|=|" + glbfoodcarb + "|=|" + gblamount, "");
-			}
-			else
-			{
 			localStorage.theFoodsList=localStorage.theFoodsList.replace("|---|" + glbfoodname + "|=|" + glbfoodcarb + "|=|0", "");
 			sessionStorage.theFoodsList=sessionStorage.theFoodsList.replace("|---|" + glbfoodname + "|=|" + glbfoodcarb + "|=|" + gblamount, "");
-			}
 			document.getElementById("delbar").style.display='none';		
 			populatelist()
 		}
