@@ -53,7 +53,14 @@
 	function del()
 		{
 			localStorage.theFoodsList=localStorage.theFoodsList.replace("|---|" + glbfoodname + "|=|" + glbfoodcarb + "|=|0", "");
+			if(isNaN(gblamount))
+			{
+			sessionStorage.theFoodsList=sessionStorage.theFoodsList.replace("|---|" + glbfoodname + "|=|" + glbfoodcarb + "|=|0", "");
+			}
+			else
+			{
 			sessionStorage.theFoodsList=sessionStorage.theFoodsList.replace("|---|" + glbfoodname + "|=|" + glbfoodcarb + "|=|" + gblamount, "");
+			}
 			document.getElementById("delbar").style.display='none';		
 			populatelist()
 		}
