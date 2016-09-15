@@ -41,14 +41,6 @@
 		
 	function delfood(id,foodname,foodcarb)
 		{
-			var showdata
-			showdata = false
-			if(showdata)
-			{
-				alert(localStorage.theFoodsList  + sessionStorage.theFoodsList)
-			}
-			else
-			{			
 				//this builds the variables so we know what we want to delete and then if ok is clicked function del is called
 				glbfoodid = id;
 				glbfoodcarb = foodcarb;
@@ -56,7 +48,6 @@
 				gblamount = document.getElementById("amount" + id).value;
 				document.getElementById("thefoodname").innerHTML = foodname;
 				document.getElementById("delbar").style.display='block';
-			}
 		}
 		
 	function del()
@@ -142,6 +133,12 @@
 			foodlisttxt += "</table>";
 			document.getElementById("content").innerHTML = foodlisttxt;	
 			calculatetotal();
+			var showdata
+			showdata = true
+			if(showdata)
+			{
+				alert(localStorage.theFoodsList  + sessionStorage.theFoodsList)
+			}
 		}
 	}
 		
