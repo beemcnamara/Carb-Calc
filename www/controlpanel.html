@@ -46,6 +46,9 @@
 				glbfoodcarb = foodcarb;
 				glbfoodname = foodname;
 				gblamount = document.getElementById("amount" + id).value;
+				if(gblamount=="")
+					{gblamount = 0}
+				alert(gblamount)
 				document.getElementById("thefoodname").innerHTML = foodname;
 				document.getElementById("delbar").style.display='block';
 		}
