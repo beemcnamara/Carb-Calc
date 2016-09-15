@@ -74,29 +74,35 @@
 		document.getElementById("clearbar").style.display="none";
 		}
 		
+	function replacedata(from,to)
+		{
+		localStorage.theFoodsList = localStorage.theFoodsList.replace(from,to)
+		sessionStorage.theFoodsList = sessionStorage.theFoodsList.replace(from,to)
+		}		
+		
 	function populatelist()
 		{
 		if((sessionStorage.theFoodsList == "") || (sessionStorage.theFoodsList == null))
 			{
-			if(localStorage.theFoodsList.substring(0,5) != "|---|")
-				{
-				localStorage.theFoodsList = "|---|" + localStorage.theFoodsList
-				}
-			localStorage.theFoodsList = localStorage.theFoodsList.replace("|---||---|", "|---|")
-			localStorage.theFoodsList = localStorage.theFoodsList.replace(/"/g, "")
-			localStorage.theFoodsList = localStorage.theFoodsList.replace(/'/g, "")	
-			localStorage.theFoodsList = localStorage.theFoodsList.replace("undefined|---|", "")
-			localStorage.theFoodsList = localStorage.theFoodsList.replace("UNDEFINED|---|", "")
 			sessionStorage.theFoodsList = localStorage.theFoodsList;
 			}	
+		replacedata("|---||---|", "|---|")
+		replacedata("|=|00", "|=|0")
+		replacedata("|=|000", "|=|0")
+		replacedata(/"/g, "")
+		replacedata(/'/g, "")
+		replacedata("undefined|---|", "")
+		replacedata("UNDEFINED|---|", "")
 		localStorage.theFoodsList = localStorage.theFoodsList.toUpperCase()
 		sessionStorage.theFoodsList = sessionStorage.theFoodsList.toUpperCase()
-		localStorage.theFoodsList = localStorage.theFoodsList.replace("|---||---|", "|---|")
-		sessionStorage.theFoodsList = sessionStorage.theFoodsList.replace("|---||---|", "|---|")
-		localStorage.theFoodsList = localStorage.theFoodsList.replace("|=|00", "|=|0")
-		sessionStorage.theFoodsList = sessionStorage.theFoodsList.replace("|=|00", "|=|0")	
-		localStorage.theFoodsList = localStorage.theFoodsList.replace("|=|000", "|=|0")
-		sessionStorage.theFoodsList = sessionStorage.theFoodsList.replace("|=|000", "|=|0")				
+		if(localStorage.theFoodsList.substring(0,5) != "|---|")
+			{
+			localStorage.theFoodsList = "|---|" + localStorage.theFoodsList
+			}	
+		if(sessionStorage.theFoodsList.substring(0,5) != "|---|")
+			{
+			sessionStorage.theFoodsList = "|---|" + sessionStorage.theFoodsList
+			}	
 		//this function populates all the fields and labels based upon what is stored in the sessionstorage variable. once all is set out it calls the calculaate all function to get the total
 		if(sessionStorage.theFoodsList != "")
 			{
