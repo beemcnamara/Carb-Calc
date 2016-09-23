@@ -88,15 +88,17 @@
 		replacedata("UNDEFINED|---|", "")
 		localStorage.theFoodsList = localStorage.theFoodsList.toUpperCase()
 		sessionStorage.theFoodsList = sessionStorage.theFoodsList.toUpperCase()
-		localStorage.theFoodsList = localStorage.theFoodsList + "|---|"
-		sessionStorage.theFoodsList = sessionStorage.theFoodsList + "|---|"
+		//localStorage.theFoodsList = localStorage.theFoodsList + "|---|"
+		//sessionStorage.theFoodsList = sessionStorage.theFoodsList + "|---|"
 		if(localStorage.theFoodsList.substring(localStorage.theFoodsList.length - 5,localStorage.theFoodsList.length) != "|---|")
 			{
-			localStorage.theFoodsList = "|---|" + localStorage.theFoodsList
+			localStorage.theFoodsList = localStorage.theFoodsList + "|---|"
+			//changed this so the text is added to the end rather than the beginning
 			}	
 		if(sessionStorage.theFoodsList.substring(sessionStorage.theFoodsList.length - 5,sessionStorage.theFoodsList.length) != "|---|")
 			{
-			sessionStorage.theFoodsList = "|---|" + sessionStorage.theFoodsList
+			sessionStorage.theFoodsList = sessionStorage.theFoodsList + "|---|"
+			//changed this so the text is added to the end rather than the beginning
 			}			
 	
 		if(localStorage.theFoodsList.substring(0,5) != "|---|")
@@ -157,9 +159,9 @@
 		
 
 		
-	function updatecarbs(id,foodname,carbrate,prevamount) //ok this is the one we're working on
+	function updatecarbs(id,foodname,carbrate,prevamount) 
 		{
-		//this function updates the values for a food item and the label is changed with the carb rate. it also adds the carbvale to the carbcalc field for this food item
+		//this function updates the values for a food item and the label is changed with the carb rate.
 		if(document.getElementById("amount" + id).value=="")
 			{newamount = 0}
 		else
@@ -330,6 +332,7 @@
 			</p>
 			<p><img src="img/screenshot.png" style="max-width:100%"></p>
 			<p>If you have any any questions or problems with this app can you please contact me on bee@beework.net  with a description of the issue and I'll try to work out what is going wrong</p>
+			<p style="background-color:#336699;text-align:center;" onclick="document.location.href='http://beework.net/apps/carbcalc'"><a href="http://beework.net/apps/carbcalc"><img src="img/applogo.png" style="max-width:100%;"></a></p>
 		</div>
 	</div>
 	<div id="bottombar3" style="display:none">
