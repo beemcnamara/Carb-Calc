@@ -55,7 +55,7 @@
 	function del()
 		{
 			localStorage.theFoodsList=localStorage.theFoodsList.replace("|---|" + glbfoodname + "|=|" + glbfoodcarb + "|=|0", "");
-			sessionStorage.theFoodsList=sessionStorage.theFoodsList.replace("|---|" + glbfoodname + "|=|" + glbfoodcarb + "|=|" + gblamount, "");
+			localStorage.theFoodsListActive=localStorage.theFoodsListActive.replace("|---|" + glbfoodname + "|=|" + glbfoodcarb + "|=|" + gblamount, "");
 			document.getElementById("delbar").style.display='none';		
 			populatelist()
 		}
@@ -70,14 +70,18 @@
 	function replacedata(from,to)
 		{
 		localStorage.theFoodsList = localStorage.theFoodsList.replace(from,to)
-		sessionStorage.theFoodsList = sessionStorage.theFoodsList.replace(from,to)
+		localStorage.theFoodsListActive = localStorage.theFoodsListActive.replace(from,to)
 		}		
 		
-	function populatelist()
+	function populatelist(populateevent)
 		{
-		if((sessionStorage.theFoodsList == "") || (sessionStorage.theFoodsList == null))
+		if(populateevent=='opening' && localStorage.ClearFoods == 'true')
 			{
-			sessionStorage.theFoodsList = localStorage.theFoodsList;
+			localStorage.theFoodsListActive = localStorage.theFoodsList;
+			}
+		if((localStorage.theFoodsListActive == "") || (localStorage.theFoodsListActive == null))
+			{
+			localStorage.theFoodsListActive = localStorage.theFoodsList;
 			}	
 		replacedata("|---||---|", "|---|")
 		replacedata("|=|00", "|=|0")
@@ -87,17 +91,17 @@
 		replacedata("undefined|---|", "")
 		replacedata("UNDEFINED|---|", "")
 		localStorage.theFoodsList = localStorage.theFoodsList.toUpperCase()
-		sessionStorage.theFoodsList = sessionStorage.theFoodsList.toUpperCase()
+		localStorage.theFoodsListActive = localStorage.theFoodsListActive.toUpperCase()
 		//localStorage.theFoodsList = localStorage.theFoodsList + "|---|"
-		//sessionStorage.theFoodsList = sessionStorage.theFoodsList + "|---|"
+		//localStorage.theFoodsListActive = localStorage.theFoodsListActive + "|---|"
 		if(localStorage.theFoodsList.substring(localStorage.theFoodsList.length - 5,localStorage.theFoodsList.length) != "|---|")
 			{
 			localStorage.theFoodsList = localStorage.theFoodsList + "|---|"
 			//changed this so the text is added to the end rather than the beginning
 			}	
-		if(sessionStorage.theFoodsList.substring(sessionStorage.theFoodsList.length - 5,sessionStorage.theFoodsList.length) != "|---|")
+		if(localStorage.theFoodsListActive.substring(localStorage.theFoodsListActive.length - 5,localStorage.theFoodsListActive.length) != "|---|")
 			{
-			sessionStorage.theFoodsList = sessionStorage.theFoodsList + "|---|"
+			localStorage.theFoodsListActive = localStorage.theFoodsListActive + "|---|"
 			//changed this so the text is added to the end rather than the beginning
 			}			
 	
@@ -105,21 +109,26 @@
 			{
 			localStorage.theFoodsList = "|---|" + localStorage.theFoodsList
 			}	
-		if(sessionStorage.theFoodsList.substring(0,5) != "|---|")
+		if(localStorage.theFoodsListActive.substring(0,5) != "|---|")
 			{
-			sessionStorage.theFoodsList = "|---|" + sessionStorage.theFoodsList
+			localStorage.theFoodsListActive = "|---|" + localStorage.theFoodsListActive
 			}	
 		//this function populates all the fields and labels based upon what is stored in the sessionstorage variable. once all is set out it calls the calculaate all function to get the total
-		if(sessionStorage.theFoodsList != "")
+		if(localStorage.theFoodsListActive != "")
 			{
-			var foodArr = sessionStorage.theFoodsList.split("|---|").sort();
+			var foodArr = localStorage.theFoodsListActive.split("|---|").sort();
 			//alert("SORTED")
 			var foodlisttxt;
 			var thisfood;
 			var trclass="";
 			numfooditems = 0;
 			carbtotal = 0;
-			foodlisttxt = "<table width='100%'><tr class=\"header\"><td></td><td>Your Foods</td><td>Carbs per 100g</td><td>Food Weight</td><td>Carbs</td></tr>";
+			foodlisttxt = "<table width='100%'><tr class=\"header\"><td></td><td>Your Foods</td>";
+			if(localStorage.ShowWeightColumn == 'true')
+			{
+			foodlisttxt += "<td>Carbs per 100g</td>";
+			}
+			foodlisttxt += "<td>Food Weight</td><td>Carbs</td></tr>";
 			for(i=0;i<foodArr.length;i++)
 			{
 				if(foodArr[i] != "undefined" && foodArr[i] != "")
@@ -140,7 +149,12 @@
 						}
 					thisfooditemtxt = thisfood[0]
 					//thisfooditemtxt = thisfooditemtxt.replace("'","\\'")
-					foodlisttxt += "<tr id=\"row" + i + "\"" + trclass + "><td><a href=\"javascript:delfood(" + i + ",'" + thisfooditemtxt + "','" + thisfood[1] + "')\"><img src=\"img/delete.png\" /></a></td><td class=\"foodcell\">" + thisfood[0] + " </td><td class=\"cent\">" + thisfood[1] + "</td><td class=\"cent\"><input id=\"amount" + i + "\"  value=\"" + thisamount+ "\" type='tel' size='3'  onfocus=\"showaddmenu()\" onblur=\"closeaddmenu()\"  onChange=\"updatecarbs(" + i + ",'" + thisfood[0]  + "'," + thisfood[1]  + "," + thisfood[2] + ")\" /><input type=\"hidden\" id=\"foodname" + i + "\" value=\"" + thisfood[0]  + "\" ><input type=\"hidden\" id=\"carbvalue" + i + "\" value=\"" + thisfood[1]  + "\" ><input type=\"hidden\" id=\"carbcalc" + i + "\" value=\"" + ((parseInt(thisfood[1])  / 100) * thisfood[2] ) + "\" ></td><td class=\"cent\"><div id='a" + i + "'>" + ((parseInt(thisfood[1])  / 100) * thisfood[2] ).toFixed(2) + "</div></td></tr>";
+					foodlisttxt += "<tr id=\"row" + i + "\"" + trclass + "><td><a href=\"javascript:delfood(" + i + ",'" + thisfooditemtxt + "','" + thisfood[1] + "')\"><img src=\"img/delete.png\" /></a></td><td class=\"foodcell\">" + thisfood[0] + " </td>";
+					if(localStorage.ShowWeightColumn == 'true')
+					{
+					foodlisttxt += "<td class=\"cent\">" + thisfood[1] + "</td>";
+					}
+					foodlisttxt += "<td class=\"cent\"><input id=\"amount" + i + "\"  value=\"" + thisamount+ "\" type='tel' size='3'  onfocus=\"showaddmenu()\" onblur=\"closeaddmenu()\"  onChange=\"updatecarbs(" + i + ",'" + thisfood[0]  + "'," + thisfood[1]  + "," + thisfood[2] + ")\" /><input type=\"hidden\" id=\"foodname" + i + "\" value=\"" + thisfood[0]  + "\" ><input type=\"hidden\" id=\"carbvalue" + i + "\" value=\"" + thisfood[1]  + "\" ><input type=\"hidden\" id=\"carbcalc" + i + "\" value=\"" + ((parseInt(thisfood[1])  / 100) * thisfood[2] ) + "\" ></td><td class=\"cent\"><div id='a" + i + "'>" + ((parseInt(thisfood[1])  / 100) * thisfood[2] ).toFixed(2) + "</div></td></tr>";
 					//foodlisttxt += "<tr><td colspan=5>" + foodArr[i] + "</td></tr>"
 					numfooditems ++;
 					}	
@@ -150,7 +164,7 @@
 			showdata = false
 			if(showdata)
 			{
-				foodlisttxt += "<h2>localstorage</h2>" + localStorage.theFoodsList  + "<h2>session storage</h2>" + sessionStorage.theFoodsList
+				foodlisttxt += "<h2>localstorage</h2>" + localStorage.theFoodsList  + "<h2>session storage</h2>" + localStorage.theFoodsListActive
 			}			
 			document.getElementById("content").innerHTML = foodlisttxt;	
 			calculatetotal();
@@ -166,7 +180,7 @@
 			{newamount = 0}
 		else
 			{newamount = document.getElementById("amount" + id).value}
-		sessionStorage.theFoodsList=sessionStorage.theFoodsList.replace("|---|" + foodname + "|=|" + carbrate + "|=|" + prevamount, "|---|" + foodname + "|=|" + carbrate + "|=|" + newamount);
+		localStorage.theFoodsListActive=localStorage.theFoodsListActive.replace("|---|" + foodname + "|=|" + carbrate + "|=|" + prevamount, "|---|" + foodname + "|=|" + carbrate + "|=|" + newamount);
 		populatelist()
 		}
 		
@@ -174,7 +188,7 @@
 		{
 		//this function calculates the total of the carbs on the list based upon the values in sessionStorage.theFoodsLis
 		carbtotal=0;
-		var foodArr = sessionStorage.theFoodsList.split("|---|");
+		var foodArr = localStorage.theFoodsListActive.split("|---|");
 		for(i=0;i<foodArr.length;i++)
 			{		
 			if(foodArr[i] != "undefined" && foodArr[i] != "")
@@ -194,7 +208,7 @@
 		
 	function clearcarbs()
 		{
-		sessionStorage.theFoodsList = "";
+		localStorage.theFoodsListActive = "";
 		populatelist();
 		clo();
 		}
@@ -227,9 +241,9 @@
 			var thefullcarbrate = (thecarbs / thegrammes) * 100
 			thefullcarbrate = parseInt(thefullcarbrate);
 			localStorage.theFoodsList += "|---|"  + thefood.trim() + "|=|" +  thefullcarbrate + "|=|0";
-			sessionStorage.theFoodsList += "|---|"  + thefood.trim().toUpperCase()+ "|=|" +  thefullcarbrate + "|=|0";
+			localStorage.theFoodsListActive += "|---|"  + thefood.trim().toUpperCase()+ "|=|" +  thefullcarbrate + "|=|0";
 			}
-			//alert(sessionStorage.theFoodsList)
+			//alert(localStorage.theFoodsListActive)
 			closeaddfood();
 			populatelist();
 		}
@@ -260,20 +274,63 @@
 		clo();
 		document.getElementById("bottombar3").style.display='block';
 		document.getElementById("helpscreen").style.display='block';
+		document.getElementById("settingscreen").style.display='none';	
 		}
 		
 	function closehelp()
 		{
 		document.getElementById("bottombar3").style.display='none';
 		document.getElementById("helpscreen").style.display='none';	
-		}		
+		document.getElementById("settingscreen").style.display='none';	
+		}	
 		
+	function showsettings()
+		{
+		clo();
+		document.getElementById("bottombar3").style.display='block';
+		document.getElementById("settingscreen").style.display='block';
+		checkentries()
+		}		
+
+function checkentries()
+{
+if(localStorage.ClearFoods == 'true')
+	{
+	document.getElementById("clearfoods").checked=true;
+	}
+if(localStorage.ShowWeightColumn == 'true')
+	{
+	document.getElementById("showweightcolumn").checked=true;
+	}	
+}		
+function saveentries()
+{
+if(document.getElementById("clearfoods").checked==true)
+{
+ localStorage.ClearFoods = 'true';
+ }
+ else
+ {
+ localStorage.ClearFoods = 'false';
+ }
+if(document.getElementById("showweightcolumn").checked==true)
+{
+localStorage.ShowWeightColumn = 'true';
+populatelist();
+ } 
+ else
+ {
+localStorage.ShowWeightColumn  = 'false';
+populatelist();
+ } 
+
+}		
 		
 //-->
 </script>
 <title>Carb Calc Control Panel</title>
 </head>
-<body onload="populatelist()">
+<body onload="populatelist('opening')">
 	<!--CONFIRM BOXES - THESE SHOW UP FOR DELETING FOODS AND CLEARING FOOD WEIGHTS-->
 	<div id="delbar" style="display:none;" >Are you sure you want to delete <span id="thefoodname"></span>?<br /><a href="javascript:del()" class="sitebutton">YES</a><a href="javascript:clo()" class="sitebutton">NO</a></div>	
 	<div id="clearbar" style="display:none;" >Are you sure you want to clear all entries?<br /><a href="javascript:clearcarbs()" class="sitebutton">YES</a><a href="javascript:clo()" class="sitebutton">NO</a></div>
@@ -282,7 +339,7 @@
 	<!--MAIN SCREEN-->	
 	<div id="bottombar">
 		<div>
-			<a href="javascript:showhelp()" class="sitebutton">&nbsp;&nbsp;?&nbsp;&nbsp;</a><a href="javascript:clearmessage()" class="sitebutton">CLEAR</a><a href="javascript:addfood()" class="sitebutton">ADD FOOD</a><span  style="font-size:14px;">&nbsp;CARBS TOTAL<span style="text-transform:lowercase;">(g)</span>: <span id="carbtotal" style="font-size:14px;font-weight:bold;">0</span></span>
+			<a href="javascript:showsettings()" class="sitebutton" style="padding:6px;"><img src="img/settingsbutton.png" /></a><a href="javascript:clearmessage()" class="sitebutton">CLEAR</a><a href="javascript:addfood()" class="sitebutton">ADD FOOD</a><span  style="font-size:14px;">&nbsp;CARBS TOTAL<span style="text-transform:lowercase;">(g)</span>: <span id="carbtotal" style="font-size:14px;font-weight:bold;">0</span></span>
 		</div> 
 	</div>	
     <div class="content" id="content"></div>
@@ -304,8 +361,8 @@
 	<!--END OF ADD FOOD SCREEN-->
 	<!--HELP SCREEN-->
 	<div id="helpscreen" style="display:none;">
-		<div style="padding-right:20px;padding-bottom:100px;">
-			<p><b>CARB CALC HELP</b></p>
+			<div id="topbar">Carb Calc Help</div>
+			<div style="padding-right:20px;padding-bottom:100px;">
 			<p>Carb Calc provides you with the ability to create your own small database (or food list) of the foods you eat most, and attach a carb value to those foods.</p>
 			<p>Once a food item has been added to your list you can then specify a weight for a portion of that food and get a carb value for it.</p>
 			<p><b>Adding A New Food</b></p>
@@ -335,10 +392,18 @@
 			<p style="background-color:#336699;text-align:center;" onclick="document.location.href='http://beework.net/apps/carbcalc'"><a href="http://beework.net/apps/carbcalc"><img src="img/beework.png" style="max-width:100%;"></a></p>
 		</div>
 	</div>
+	<!--END OF HELP SCREEN-->	
+	<div id="settingscreen" style="display:none;top:0;">
+	<div id="topbar">Settings</div>
+	<div style="padding-right:20px;padding-bottom:100px;">	
+	<p><input type="checkbox" id="clearfoods" onclick="saveentries()"> Clear food weights when app loads.</p>
+	<p><input type="checkbox" id="showweightcolumn" onclick="saveentries()"> Show Carbs per 100g weight column.</p>
+	<a href="javascript:showhelp()" class="sitebutton">HELP PAGE ?</a>
+	</div>
+	</div>
 	<div id="bottombar3" style="display:none">
 		<a href="javascript:closehelp()" class="sitebutton" >CLOSE</a>
 	</div>		
-	<!--END OF HELP SCREEN-->	
 	<div id="local"><br /></div>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
