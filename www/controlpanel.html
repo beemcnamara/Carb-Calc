@@ -151,10 +151,25 @@
 					//thisfooditemtxt = thisfooditemtxt.replace("'","\\'")
 					foodlisttxt += "<tr id=\"row" + i + "\"" + trclass + "><td><a href=\"javascript:delfood(" + i + ",'" + thisfooditemtxt + "','" + thisfood[1] + "')\"><img src=\"img/delete.png\" /></a></td><td class=\"foodcell\">" + thisfood[0] + " </td>";
 					if(localStorage.ShowWeightColumn == 'true')
+						{
+						if(localStorage.Decimals == 'true')
+							{
+							foodlisttxt += "<td class=\"cent\">" + thisfood[1] + "</td>";
+							}
+						else	
+							{
+							foodlisttxt += "<td class=\"cent\">" + parseInt(thisfood[1]) + "</td>";
+							}
+						}
+					if(localStorage.Decimals == 'true')
 					{
-					foodlisttxt += "<td class=\"cent\">" + thisfood[1] + "</td>";
+					thisfoodresult = ((parseFloat(thisfood[1])  / 100) * thisfood[2] ).toFixed(2);
 					}
-					foodlisttxt += "<td class=\"cent\"><input id=\"amount" + i + "\"  value=\"" + thisamount+ "\" type='tel' size='3'  onfocus=\"showaddmenu()\" onblur=\"closeaddmenu()\"  onChange=\"updatecarbs(" + i + ",'" + thisfood[0]  + "'," + thisfood[1]  + "," + thisfood[2] + ")\" /><input type=\"hidden\" id=\"foodname" + i + "\" value=\"" + thisfood[0]  + "\" ><input type=\"hidden\" id=\"carbvalue" + i + "\" value=\"" + thisfood[1]  + "\" ><input type=\"hidden\" id=\"carbcalc" + i + "\" value=\"" + ((parseInt(thisfood[1])  / 100) * thisfood[2] ) + "\" ></td><td class=\"cent\"><div id='a" + i + "'>" + ((parseInt(thisfood[1])  / 100) * thisfood[2] ).toFixed(2) + "</div></td></tr>";
+					else
+					{
+					thisfoodresult = ((parseInt(thisfood[1])  / 100) * thisfood[2] ).toFixed(0);
+					}
+					foodlisttxt += "<td class=\"cent\"><input id=\"amount" + i + "\"  value=\"" + thisamount+ "\" type='tel' size='3'  onfocus=\"showaddmenu()\" onblur=\"closeaddmenu()\"  onChange=\"updatecarbs(" + i + ",'" + thisfood[0]  + "'," + thisfood[1]  + "," + thisfood[2] + ")\" /><input type=\"hidden\" id=\"foodname" + i + "\" value=\"" + thisfood[0]  + "\" ><input type=\"hidden\" id=\"carbvalue" + i + "\" value=\"" + thisfood[1]  + "\" ><input type=\"hidden\" id=\"carbcalc" + i + "\" value=\"" + thisfoodresult + "\" ></td><td class=\"cent\"><div id='a" + i + "'>" + thisfoodresult + "</div></td></tr>";
 					//foodlisttxt += "<tr><td colspan=5>" + foodArr[i] + "</td></tr>"
 					numfooditems ++;
 					}	
@@ -194,14 +209,28 @@
 			if(foodArr[i] != "undefined" && foodArr[i] != "")
 				{			
 				thisfood = foodArr[i].split("|=|")
-				thisamount = ((parseInt(thisfood[1])  / 100) * thisfood[2] ).toFixed(2);
+				thisamount = ((parseFloat(thisfood[1])  / 100) * thisfood[2] ).toFixed(2);
 				//alert(thisamount)
 				thiscarb = parseFloat(thisamount);
+				if(localStorage.Decimals == 'true')
+				{
 				thiscarb = parseFloat(thiscarb.toFixed(2));
+				}
+				else
+				{
+				thiscarb = parseFloat(thiscarb.toFixed(0));
+				}
 				carbtotal += thiscarb;
 				}
 			}
+		if(localStorage.Decimals == 'true')
+		{
 		carbtotal = parseFloat(carbtotal.toFixed(2)).toString();
+		}
+		else
+		{
+		carbtotal = parseFloat(carbtotal.toFixed(0)).toString();
+		}
 		document.getElementById("carbtotal").innerHTML = carbtotal ;
 		}
 		
@@ -239,7 +268,7 @@
 			{
 			//alert("hi")
 			var thefullcarbrate = (thecarbs / thegrammes) * 100
-			thefullcarbrate = parseInt(thefullcarbrate);
+			thefullcarbrate = parseFloat(thefullcarbrate).toFixed(2);
 			localStorage.theFoodsList += "|---|"  + thefood.trim() + "|=|" +  thefullcarbrate + "|=|0";
 			localStorage.theFoodsListActive += "|---|"  + thefood.trim().toUpperCase()+ "|=|" +  thefullcarbrate + "|=|0";
 			}
@@ -302,6 +331,10 @@ if(localStorage.ShowWeightColumn == 'true')
 	{
 	document.getElementById("showweightcolumn").checked=true;
 	}	
+if(localStorage.Decimals == 'true')
+	{
+	document.getElementById("decimals").checked=true;
+	}	
 }		
 function saveentries()
 {
@@ -323,6 +356,16 @@ populatelist();
 localStorage.ShowWeightColumn  = 'false';
 populatelist();
  } 
+ if(document.getElementById("decimals").checked==true)
+{
+ localStorage.Decimals = 'true';
+ populatelist();
+ }
+ else
+ {
+ localStorage.Decimals = 'false';
+ populatelist();
+ }
 
 }		
 		
@@ -398,6 +441,7 @@ populatelist();
 	<div style="padding-right:20px;padding-bottom:100px;">	
 	<p><input type="checkbox" id="clearfoods" onclick="saveentries()"> Clear food weights when app loads.</p>
 	<p><input type="checkbox" id="showweightcolumn" onclick="saveentries()"> Show Carbs per 100g weight column.</p>
+	<p><input type="checkbox" id="decimals" onclick="saveentries()"> More exact carb rates (to 2 decimal places).</p>
 	<a href="javascript:showhelp()" class="sitebutton">HELP PAGE ?</a>
 	</div>
 	</div>
