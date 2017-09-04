@@ -37,7 +37,7 @@
 	var gblamount
 	var foodArrtxt;
 	var carbtotal;
-
+	localStorage.Decimals = 'true';
 		
 	function delfood(id,foodname,foodcarb)
 		{
@@ -356,7 +356,8 @@ populatelist();
 localStorage.ShowWeightColumn  = 'false';
 populatelist();
  } 
- if(document.getElementById("decimals").checked==true)
+ /*if(document.getElementById("decimals").checked==true)
+ removed this part so we just always use exact
 {
  localStorage.Decimals = 'true';
  populatelist();
@@ -365,7 +366,7 @@ populatelist();
  {
  localStorage.Decimals = 'false';
  populatelist();
- }
+ }*/
 
 }		
 		
@@ -441,7 +442,8 @@ populatelist();
 	<div style="padding-right:20px;padding-bottom:100px;">	
 	<p><input type="checkbox" id="clearfoods" onclick="saveentries()"> Clear food weights when app loads.</p>
 	<p><input type="checkbox" id="showweightcolumn" onclick="saveentries()"> Show Carbs per 100g weight column.</p>
-	<p><input type="checkbox" id="decimals" onclick="saveentries()"> More exact carb rates (to 2 decimal places).</p>
+	<!--p><input type="checkbox" id="decimals" onclick="saveentries()"> More exact carb rates (to 2 decimal places).</p-->
+	<!--Ive removed this and just made the app always use exact to 2 decimal. That way people just need to decide for themselves when entering food-->
 	<a href="javascript:showhelp()" class="sitebutton">HELP PAGE ?</a>
 	</div>
 	</div>
