@@ -218,7 +218,7 @@
 				}
 				else
 				{
-				thiscarb = parseFloat(thiscarb.toFixed(0));
+				thiscarb = Math.floor(parseFloat(thiscarb.toFixed(2)));
 				}
 				carbtotal += thiscarb;
 				}
@@ -229,7 +229,7 @@
 		}
 		else
 		{
-		carbtotal = parseFloat(carbtotal.toFixed(0)).toString();
+		carbtotal = Math.floor(parseFloat(carbtotal.toFixed(2))).toString();
 		}
 		document.getElementById("carbtotal").innerHTML = carbtotal ;
 		}
