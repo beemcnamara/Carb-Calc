@@ -82,7 +82,8 @@
 		if((localStorage.theFoodsListActive == "") || (localStorage.theFoodsListActive == null))
 			{
 			localStorage.theFoodsListActive = localStorage.theFoodsList;
-			}	
+			}
+		
 		replacedata("|---||---|", "|---|")
 		replacedata("|=|00", "|=|0")
 		replacedata("|=|000", "|=|0")
@@ -184,6 +185,7 @@
 			}			
 			document.getElementById("content").innerHTML = foodlisttxt;	
 			calculatetotal();
+				
 		}
 	}
 		
@@ -269,7 +271,7 @@
 			{
 			//alert("hi")
 			var thefullcarbrate = (thecarbs / thegrammes) * 100
-			thefullcarbrate = parseFloat(thefullcarbrate).toFixed(2);
+			thefullcarbrate = parseFloat(thefullcarbrate);
 			localStorage.theFoodsList += "|---|"  + thefood.trim() + "|=|" +  thefullcarbrate + "|=|0";
 			localStorage.theFoodsListActive += "|---|"  + thefood.trim().toUpperCase()+ "|=|" +  thefullcarbrate + "|=|0";
 			}
