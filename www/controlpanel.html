@@ -450,6 +450,11 @@ if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 			clearcarbs()		
 		
 		}
+	else
+		{
+		document.getElementById("importtxt").innerHTML="Sorry, the import function failed;
+		setTimeout("removesavedtxt()",5000);
+		}
 				
  }
 }
