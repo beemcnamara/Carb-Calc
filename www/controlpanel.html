@@ -337,7 +337,7 @@ function checkforfile()
 {
 if(localStorage.fileReference != "" && localStorage.fileReference != null)
 {
-document.getElementById("exporttxt").innerHTML="<p>Your data file reference is " + localStorage.fileReference + ". You can use this reference to reload your data or to load your data onto another device by using the import data button below.</p>";
+document.getElementById("exporttxt").innerHTML="<p>" +  localStorage.fileReference + "</p><p>This is your data file reference. Use this reference to reload your data or to load your data onto another device by using the import data button below.</p>";
 }
 else{
 document.getElementById("exporttxt").innerHTML="<p>You haven't yet exported from this device. You can save your data by clicking the 'EXPORT YOUR CARBS DATA' button below.</p>";
@@ -543,6 +543,7 @@ xmlhttp.send(params);
 			<li>The Carb Calc list will be loaded onto your device and overwrite the list that was previously there.</li>
 			</ul>
 			</p>
+			<p>There is now an on-line version of this app so you can check carb values on your computer or laptop. Go to <a href="http://carbcalc.diabetes.gb.net">http://carbcalc.diabetes.gb.net</a> to try it out.
 			<p>If you have any any questions or problems with this app can you please contact me on bee@beework.net or contact me through my website at <a href="http://www.beework.net/apps/carbcalc">http://www.beework.net/apps/carbcalc</a> with a description of the issue and I'll try to work out what is going wrong</p>
 			<p style="background-color:#336699;text-align:center;" onclick="document.location.href='http://beework.net/apps/carbcalc'"><a href="http://beework.net/apps/carbcalc"><img src="img/beework.png" style="max-width:100%;"></a></p>
 		</div>
