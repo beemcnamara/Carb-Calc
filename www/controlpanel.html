@@ -445,14 +445,14 @@ if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 			//alert(xmlhttp.responseText)
 			localStorage.theFoodsList = xmlhttp.responseText;
 			localStorage.theFoodsListActive = xmlhttp.responseText;
-			document.getElementById("importtxt").innerHTML="Your Carb Data has been imported";
+			document.getElementById("importtxt").innerHTML="Carb Data " + document.getElementById("filereference").value + " has been imported";
 			setTimeout("removesavedtxt()",5000);
 			clearcarbs()		
 		
 		}
 	else
 		{
-		document.getElementById("importtxt").innerHTML="Sorry, the import function failed;
+		document.getElementById("importtxt").innerHTML="Sorry, the import function failed, please check the reference number entered.";
 		setTimeout("removesavedtxt()",5000);
 		}
 				
