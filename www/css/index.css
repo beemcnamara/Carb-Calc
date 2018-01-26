@@ -219,7 +219,7 @@ margin:auto;
 	background-color:#ffffff;
 }
 
-#helpscreen, #settingscreen
+#helpscreen, #settingscreen, #datascreen
 {
 	position:fixed;
 	width:100%;

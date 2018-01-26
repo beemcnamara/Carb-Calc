@@ -83,8 +83,8 @@
 			{
 			localStorage.theFoodsListActive = localStorage.theFoodsList;
 			}
-		
 		replacedata("|---||---|", "|---|")
+		replacedata("|=|.", "|=|0.")
 		replacedata("|=|00", "|=|0")
 		replacedata("|=|000", "|=|0")
 		replacedata(/"/g, "")
@@ -309,11 +309,21 @@
 		document.getElementById("settingscreen").style.display='none';	
 		}
 		
+	function showdata()
+		{
+		clo();
+		document.getElementById("bottombar3").style.display='block';
+		document.getElementById("datascreen").style.display='block';
+		document.getElementById("settingscreen").style.display='none';	
+		document.getElementById("helpscreen").style.display='none';
+		}		
+		
 	function closehelp()
 		{
 		document.getElementById("bottombar3").style.display='none';
 		document.getElementById("helpscreen").style.display='none';	
 		document.getElementById("settingscreen").style.display='none';	
+		document.getElementById("datascreen").style.display='none';
 		}	
 		
 	function showsettings()
@@ -322,7 +332,17 @@
 		document.getElementById("bottombar3").style.display='block';
 		document.getElementById("settingscreen").style.display='block';
 		checkentries()
-		}		
+		}	
+function checkforfile()
+{
+if(localStorage.fileReference != "" && localStorage.fileReference != null)
+{
+document.getElementById("exporttxt").innerHTML="<p>Your data file reference is " + localStorage.fileReference + ". You can use this reference to reload your data or to load your data onto another device by using the import data button below.</p>";
+}
+else{
+document.getElementById("exporttxt").innerHTML="<p>You haven't yet exported from this device. You can save your data by clicking the 'EXPORT YOUR CARBS DATA' button below.</p>";
+}
+}		
 
 function checkentries()
 {
@@ -371,7 +391,70 @@ populatelist();
  populatelist();
  }*/
 
-}		
+}	
+function removesavedtxt()
+{
+document.getElementById("savedtxt").innerHTML="&nbsp;";
+document.getElementById("importtxt").innerHTML="&nbsp;";
+}
+
+function savedata()
+{
+var xmlhttp = new XMLHttpRequest();
+var url = "http://carbcalc.diabetes.gb.net/userdata/savedata.php";
+var params = "data=" + localStorage.theFoodsList + "&filereference=" + localStorage.fileReference;
+xmlhttp.open("POST", url, true);
+
+//Send the proper header information along with the request
+xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+xmlhttp.onreadystatechange = function() {//Call a function when the state changes.
+if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+		if(xmlhttp.responseText != "Sorry, couldn't save your file")
+		{
+		localStorage.fileReference = xmlhttp.responseText
+		document.getElementById("exporttxt").innerHTML="<p>Your data file reference is " + localStorage.fileReference + ". You can use this reference to reload your data or to load your data onto another device by using the import data button below.</p>";
+		document.getElementById("savedtxt").innerHTML="Your Carb Data has been saved";
+		setTimeout("removesavedtxt()",5000);
+		}
+		else
+		{
+		document.getElementById("savedtxt").innerHTML="Sorry, that file could not be imported.";
+		}
+		
+ }
+}
+xmlhttp.send(params);
+
+}
+
+function getdata()
+{
+var xmlhttp = new XMLHttpRequest();
+var url = "http://carbcalc.diabetes.gb.net/userdata/getdata.php";
+var params = "filereference=" + document.getElementById("filereference").value;
+xmlhttp.open("POST", url, true);
+
+//Send the proper header information along with the request
+xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+xmlhttp.onreadystatechange = function() {//Call a function when the state changes.
+if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+	if(xmlhttp.responseText != "Sorry, couldn't read specified file" && xmlhttp.responseText != "Sorry, couldn't find file" && xmlhttp.responseText != "")
+		{
+			//alert(xmlhttp.responseText)
+			localStorage.theFoodsList = xmlhttp.responseText;
+			localStorage.theFoodsListActive = xmlhttp.responseText;
+			document.getElementById("importtxt").innerHTML="Your Carb Data has been imported";
+			setTimeout("removesavedtxt()",5000);
+			clearcarbs()		
+		
+		}
+				
+ }
+}
+xmlhttp.send(params);
+}
 		
 //-->
 </script>
@@ -398,9 +481,9 @@ populatelist();
 		<div id="topbar">Add Food Item</div>
 		<p><input type="text" name="foodname" id="foodname" value="" placeholder="Add The Food Name Here" size=27></p>
 		<p>has a carb value of <input type="tel" id="carbvalue" name="carbvalue" value="" size="6"></p>
-		<p>for every <input type="tel" id="gramweight" name="gramweight" value="100" size="6"> grammes in weight*</p>
+		<p>for every <input type="tel" id="gramweight" name="gramweight" value="100" size="6"> grams in weight*</p>
 		<p style="font-weight:bold;">Fill in the details above and click on the SAVE button at the bottom to add your food item</p>
-		<p style="font-style:italic;">* 100 Grammes is specified by default, This value can be changed however.</p>
+		<p style="font-style:italic;">* 100 Grams is specified by default, This value can be changed however.</p>
 	</div>
 	<div id="bottombar2" style="display:none">
 			<a href="javascript:addtolist()" class="sitebutton" >SAVE</a><a href="javascript:closeaddfood()" class="sitebutton" >CANCEL</a>
@@ -435,7 +518,27 @@ populatelist();
 				</ul>
 			</p>
 			<p><img src="img/screenshot.png" style="max-width:100%"></p>
-			<p>If you have any any questions or problems with this app can you please contact me on bee@beework.net  with a description of the issue and I'll try to work out what is going wrong</p>
+			<p><b>Saving Your Carb Calc Data and Sharing it Between Devices</b></p>
+			<p>Please note you will need an internet connection to save and share your data</p>
+			<p>You can save the data that you have stored on your device by doing the following:
+			<ul>
+			<li>Click on the settings link at the bottom of the screen</li>
+			<li>Click on the "IMPORT/EXPORT CARBS DATA" button.</li>
+			<li>To save the data you have on your device simply click the "EXPORT YOUR CARB CALC DATA" button.</li>
+			<li>You will be given a reference number which you can use to import the data onto another device.</li>
+			<li>The reference will always remain the same on a device so if you change your phone you'll need to have the reference from your old phone in order to import your list to the new phone.</li>			
+			<li>Every time you save your data it overwrites what was previously saved. </li>
+			</ul>
+			</p>
+			<p>You can import a Carb Calc list by doing the following:
+			<ul>
+			<li>Click on the settings link at the bottom of the screen</li>
+			<li>Click on the "IMPORT/EXPORT CARBS DATA" button.</li>
+			<li>Type the reference for the list you want to load into the text box provided and click on the "IMPORT CARB CALC DATA" button.</li>
+			<li>The Carb Calc list will be loaded onto your device and overwrite the list that was previously there.</li>
+			</ul>
+			</p>
+			<p>If you have any any questions or problems with this app can you please contact me on bee@beework.net or contact me through my website at <a href="http://www.beework.net/apps/carbcalc">http://www.beework.net/apps/carbcalc</a> with a description of the issue and I'll try to work out what is going wrong</p>
 			<p style="background-color:#336699;text-align:center;" onclick="document.location.href='http://beework.net/apps/carbcalc'"><a href="http://beework.net/apps/carbcalc"><img src="img/beework.png" style="max-width:100%;"></a></p>
 		</div>
 	</div>
@@ -447,9 +550,24 @@ populatelist();
 	<p><input type="checkbox" id="showweightcolumn" onclick="saveentries()"> Show Carbs per 100g weight column.</p>
 	<!--p><input type="checkbox" id="decimals" onclick="saveentries()"> More exact carb rates (to 2 decimal places).</p-->
 	<!--Ive removed this and just made the app always use exact to 2 decimal. That way people just need to decide for themselves when entering food-->
-	<a href="javascript:showhelp()" class="sitebutton">HELP PAGE ?</a>
+	<a href="javascript:showhelp()" class="sitebutton">HELP PAGE ?</a> <a href="javascript:showdata()" class="sitebutton">IMPORT / EXPORT CARBS DATA</a>
 	</div>
 	</div>
+	
+	<div id="datascreen" style="display:none;top:0;">
+	<div id="topbar">Import / Export Carbs</div>
+	<div style="padding-right:20px;padding-bottom:100px;">	
+	<p><b>Please note that you will need an internet connection on your device to export or import a Carb Calc list</b></p>
+	<h2>Export Your Data</h2>
+	<div id="exporttxt"></div>
+	<script>checkforfile()</script>
+	<p><a href="javascript:savedata()" class="sitebutton">EXPORT YOUR CARB CALC DATA</a> <span id="savedtxt" style="line-height:50px;color:#ff0000;font-weight:bold">&nbsp;</span></p>
+	<h2 style="clear:both;padding-top:20px;">Import Data</h2>
+	<p>To import a Carb file, type in the file reference you have into the box below and click the 'IMPORT CARB CALC DATA' button. </p><p><b><u>Please note:</u></b> the file you import will overwrite the carb list you currently have on this device.</p>
+	<p><input type="text" id="filereference" style="margin:5px;" placeholder="Type Reference Here" /><br />
+	<a href="javascript:getdata()" class="sitebutton">IMPORT CARB CALC DATA</a><span id="importtxt" style="line-height:50px;color:#ff0000;font-weight:bold">&nbsp;</span></p>
+	</div>
+	</div>	
 	<div id="bottombar3" style="display:none">
 		<a href="javascript:closehelp()" class="sitebutton" >CLOSE</a>
 	</div>		
