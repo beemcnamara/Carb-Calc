@@ -1,4 +1,4 @@
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="net.beework.carbcalc" version="1.6.0">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="net.beework.carbcalc" version="1.4.0">
   <name>Carb Calc</name>
   <description>Simple Carbohydrate Calculator.</description>
   <author href="http://www.beework.net" email="bee@beework.net">Beework Web Design</author>
@@ -17,8 +17,8 @@
   <preference name="show-splash-screen-spinner" value="true"/>
   <preference name="auto-hide-splash-screen" value="true"/>
   <preference name="disable-cursor" value="false"/>
-  <!--preference name="android-minSdkVersion" value="8"/-->
-  <preference name="android-targetSdkVersion" value="28"/>
+  <!--preference name="android-minSdkVersion" value="8"/>
+  <preference name="android-targetSdkVersion" value="28"/-->
   <preference name="android-windowSoftInputMode" value="adjustResize" />
   <preference name="android-installLocation" value="auto"/>
 
