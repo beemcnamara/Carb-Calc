@@ -127,15 +127,9 @@
 			foodlisttxt = "<table width='100%'><tr class=\"header\"><td></td><td>Your Foods</td>";
 			if(localStorage.ShowWeightColumn == 'true')
 			{
-			foodlisttxt += "<td>Carbs<br />per 100g</td>";
+			foodlisttxt += "<td>Carbs per 100g</td>";
 			}
-			foodlisttxt += "<td>Food<br />Weight</td>";
-			//alert(localStorage.InsulinRatio)
-			if(localStorage.InsulinRatio > 0)
-			{
-			foodlisttxt += "<td>Insulin<br />Dose</td>";
-			}			
-			foodlisttxt += "<td>Carbs</td></tr>";
+			foodlisttxt += "<td>Food Weight</td><td>Carbs</td></tr>";
 			for(i=0;i<foodArr.length;i++)
 			{
 				if(foodArr[i] != "undefined" && foodArr[i] != "")
@@ -172,20 +166,12 @@
 					if(localStorage.Decimals == 'true')
 					{
 					thisfoodresult = ((parseFloat(thisfood[1])  / 100) * thisfood[2] ).toFixed(2);
-					thisinsulinresult = parseFloat(thisfoodresult / localStorage.InsulinRatio).toFixed(2);
 					}
 					else
 					{
 					thisfoodresult = ((parseInt(thisfood[1])  / 100) * thisfood[2] ).toFixed(0);
-					thisinsulinresult = parseFloat(thisfoodresult / localStorage.InsulinRatio).toFixed(2);
 					}
-					foodlisttxt += "<td class=\"cent\"><input id=\"amount" + i + "\"  value=\"" + thisamount+ "\" type='tel' size='1'  onfocus=\"showaddmenu()\" onblur=\"closeaddmenu()\"  onChange=\"updatecarbs(" + i + ",'" + thisfood[0]  + "'," + thisfood[1]  + "," + thisfood[2] + ")\" /><input type=\"hidden\" id=\"foodname" + i + "\" value=\"" + thisfood[0]  + "\" ><input type=\"hidden\" id=\"carbvalue" + i + "\" value=\"" + thisfood[1]  + "\" ><input type=\"hidden\" id=\"carbcalc" + i + "\" value=\"" + thisfoodresult + "\" ></td>";
-					if(localStorage.InsulinRatio > 0)
-					{
-					foodlisttxt += "<td class=\"cent\">" + thisinsulinresult + "</td>";
-					}
-					foodlisttxt += "<td class=\"cent\"><div id='a" + i + "'>" + thisfoodresult + "</div></td>";
-					foodlisttxt += "</tr>";
+					foodlisttxt += "<td class=\"cent\"><input id=\"amount" + i + "\"  value=\"" + thisamount+ "\" type='tel' size='3'  onfocus=\"showaddmenu()\" onblur=\"closeaddmenu()\"  onChange=\"updatecarbs(" + i + ",'" + thisfood[0]  + "'," + thisfood[1]  + "," + thisfood[2] + ")\" /><input type=\"hidden\" id=\"foodname" + i + "\" value=\"" + thisfood[0]  + "\" ><input type=\"hidden\" id=\"carbvalue" + i + "\" value=\"" + thisfood[1]  + "\" ><input type=\"hidden\" id=\"carbcalc" + i + "\" value=\"" + thisfoodresult + "\" ></td><td class=\"cent\"><div id='a" + i + "'>" + thisfoodresult + "</div></td></tr>";
 					//foodlisttxt += "<tr><td colspan=5>" + foodArr[i] + "</td></tr>"
 					numfooditems ++;
 					}	
@@ -220,7 +206,6 @@
 		{
 		//this function calculates the total of the carbs on the list based upon the values in sessionStorage.theFoodsLis
 		carbtotal=0;
-		insulintotal=0;
 		var foodArr = localStorage.theFoodsListActive.split("|---|");
 		for(i=0;i<foodArr.length;i++)
 			{		
@@ -238,27 +223,18 @@
 				{
 				thiscarb = Math.floor(parseFloat(thiscarb.toFixed(2)));
 				}
-				thisinsulinresult = thiscarb / localStorage.InsulinRatio;
 				carbtotal += thiscarb;
-				insulintotal += thisinsulinresult;
 				}
 			}
 		if(localStorage.Decimals == 'true')
 		{
 		carbtotal = parseFloat(carbtotal.toFixed(2)).toString();
-		insulintotal = parseFloat(insulintotal.toFixed(2)).toString()
 		}
 		else
 		{
 		carbtotal = Math.floor(parseFloat(carbtotal.toFixed(2))).toString();
 		}
-		document.getElementById("carbtotal").innerHTML = carbtotal
-		//alert(localStorage.InsulinRatio)
-		if(localStorage.InsulinRatio > 0)
-		{
-		document.getElementById("insulintotal").innerHTML = "&nbsp;INSULIN TOTAL:<span style=\"font-size:14px;font-weight:bold;\">" + insulintotal + "</span>";
-		//document.getElementById("insulintotallabel").innerHTML = "&nbsp;INSULIN TOTAL:";
-		}
+		document.getElementById("carbtotal").innerHTML = carbtotal ;
 		}
 		
 		
@@ -385,7 +361,6 @@ if(localStorage.Decimals == 'true')
 }		
 function saveentries()
 {
-localStorage.InsulinRatio = document.getElementById("insulinratio").selectedIndex;
 if(document.getElementById("clearfoods").checked==true)
 {
  localStorage.ClearFoods = 'true';
@@ -394,7 +369,7 @@ if(document.getElementById("clearfoods").checked==true)
  {
  localStorage.ClearFoods = 'false';
  }
- if(document.getElementById("showweightcolumn").checked==true)
+if(document.getElementById("showweightcolumn").checked==true)
 {
 localStorage.ShowWeightColumn = 'true';
 populatelist();
@@ -415,7 +390,7 @@ populatelist();
  localStorage.Decimals = 'false';
  populatelist();
  }*/
-//alert(localStorage.InsulinRatio);
+
 }	
 function removesavedtxt()
 {
@@ -485,23 +460,6 @@ if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 }
 xmlhttp.send(params);
 }
-
-function showinsulinselect()
-{
-document.write("<select id=\"insulinratio\" onchange=\"saveentries()\">");
-for(i=0;i<=30;i++)
-{
-if(localStorage.InsulinRatio==i)
-{
-document.write("<option value=\"" + i + "\" selected=\"selected\">" + i + "</option>");
-}
-else
-{
-document.write("<option value=\"" + i + "\">" + i + "</option>");
-}
-}
-document.write("</select>");
-}
 		
 //-->
 </script>
@@ -516,8 +474,7 @@ document.write("</select>");
 	<!--MAIN SCREEN-->	
 	<div id="bottombar">
 		<div>
-			<a href="javascript:showsettings()" class="sitebutton" style="padding:6px;"><img src="img/settingsbutton.png" /></a><a href="javascript:clearmessage()" class="sitebutton">CLEAR</a><a href="javascript:addfood()" class="sitebutton">ADD FOOD</a><span style="font-size:14px;">&nbsp;CARBS TOTAL<span style="text-transform:lowercase;">(g)</span>: <span id="carbtotal" style="font-size:14px;font-weight:bold;">0</span></span><br />
-			<span style="font-size:14px;" id="insulintotal"></span>
+			<a href="javascript:showsettings()" class="sitebutton" style="padding:6px;"><img src="img/settingsbutton.png" /></a><a href="javascript:clearmessage()" class="sitebutton">CLEAR</a><a href="javascript:addfood()" class="sitebutton">ADD FOOD</a><span  style="font-size:14px;">&nbsp;CARBS TOTAL<span style="text-transform:lowercase;">(g)</span>: <span id="carbtotal" style="font-size:14px;font-weight:bold;">0</span></span>
 		</div> 
 	</div>	
     <div class="content" id="content"></div>
@@ -597,7 +554,6 @@ document.write("</select>");
 	<div style="padding-right:20px;padding-bottom:100px;">	
 	<p><input type="checkbox" id="clearfoods" onclick="saveentries()"> Clear food weights when app loads.</p>
 	<p><input type="checkbox" id="showweightcolumn" onclick="saveentries()"> Show Carbs per 100g weight column.</p>
-	<p><script>showinsulinselect();</script> Carb ratio for 1 unit of insulin (leave at 0 to not use)</p>
 	<!--p><input type="checkbox" id="decimals" onclick="saveentries()"> More exact carb rates (to 2 decimal places).</p-->
 	<!--Ive removed this and just made the app always use exact to 2 decimal. That way people just need to decide for themselves when entering food-->
 	<p><a href="javascript:showdata()" class="settingsbutton">IMPORT / EXPORT CARBS DATA</a></p>
