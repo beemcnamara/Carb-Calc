@@ -1,4 +1,4 @@
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="net.beework.carbcalc" version="1.5.0">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="net.beework.carbcalc" version="2.0.0">
   <name>Carb Calc</name>
   <description>Simple Carbohydrate Calculator.</description>
   <author href="http://www.beework.net" email="bee@beework.net">Beework Web Design</author>
