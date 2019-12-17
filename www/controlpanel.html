@@ -426,7 +426,7 @@ document.getElementById("importtxt").innerHTML="&nbsp;";
 function savedata()
 {
 var xmlhttp = new XMLHttpRequest();
-var url = "http://data.diabetes.gb.net/carbcalc/userdata/savedata.php";
+var url = "https://data.diabetes.gb.net/carbcalc/userdata/savedata.php";
 var params = "data=" + localStorage.theFoodsList + "&filereference=" + localStorage.fileReference;
 xmlhttp.open("POST", url, true);
 
@@ -456,7 +456,7 @@ xmlhttp.send(params);
 function getdata()
 {
 var xmlhttp = new XMLHttpRequest();
-var url = "http://data.diabetes.gb.net/carbcalc/userdata/getdata.php";
+var url = "https://data.diabetes.gb.net/carbcalc/userdata/getdata.php";
 var params = "filereference=" + document.getElementById("filereference").value;
 xmlhttp.open("POST", url, true);
 
@@ -586,9 +586,9 @@ document.write("</select>");
 			<li>The Carb Calc list will be loaded onto your device and overwrite the list that was previously there.</li>
 			</ul>
 			</p>
-			<p>There is now an on-line version of this app so you can check carb values on your computer or laptop. Go to <a href="http://carbcalc.diabetes.gb.net">http://carbcalc.diabetes.gb.net</a> to try it out.
-			<p>If you have any any questions or problems with this app can you please contact me on carbcalc@diabetes.gb.net or contact me through my website at <a href="http://www.diabetes.gb.net/apps/carbcalc">http://www.diabetes.gb.net/apps/carbcalc</a> with a description of the issue and I'll try to work out what is going wrong</p>
-			<p style="background-color:#990000;text-align:center;border-radius:16px;cursor:pointer;width:100%;height:48px;" onclick="document.location.href='http://www.diabetes.gb.net/apps/carbcalc'"><a href="http://www.diabetes.gb.net/apps/carbcalc"><img src="img/diabeteslogo.png" style="max-width:100%;margin:1px 0 1px 0;"></a></p>
+			<p>There is now an on-line version of this app so you can check carb values on your computer or laptop. Go to <a href="https://carbcalc.diabetes.gb.net">https://carbcalc.diabetes.gb.net</a> to try it out.
+			<p>If you have any any questions or problems with this app can you please contact me on carbcalc@diabetes.gb.net or contact me through my website at <a href="https://www.diabetes.gb.net/apps/carbcalc">https://www.diabetes.gb.net/apps/carbcalc</a> with a description of the issue and I'll try to work out what is going wrong</p>
+			<p style="background-color:#990000;text-align:center;border-radius:16px;cursor:pointer;width:100%;height:48px;" onclick="document.location.href='https://www.diabetes.gb.net/apps/carbcalc'"><a href="https://www.diabetes.gb.net/apps/carbcalc"><img src="img/diabeteslogo.png" style="max-width:100%;margin:1px 0 1px 0;"></a></p>
 		</div>
 	</div>
 	<!--END OF HELP SCREEN-->	
